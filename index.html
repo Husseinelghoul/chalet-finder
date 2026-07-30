@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#ff7a59" />
-<title>Chalet Finder ✨ Bqaatouta Getaways</title>
+<title>Chalet Finder ✨ Lebanon Chalet Getaways</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -399,7 +399,7 @@ footer .heart{color:var(--berry)}
   <!-- CHALETS -->
   <section class="view" id="view-chalets">
     <h2 class="sec-title">🏡 Meet the family of chalets</h2>
-    <p class="sec-sub">Each one has its own private pool, BBQ & play area. Filter by provider, or browse them all.</p>
+    <p class="sec-sub">Private-pool chalets & pool day-passes across Lebanon. Filter by provider, or browse them all.</p>
     <div class="provsw" id="cardsProv"></div>
     <div class="grid" id="cards"></div>
   </section>
@@ -433,7 +433,7 @@ footer .heart{color:var(--berry)}
   <!-- COMPARE -->
   <section class="view hide" id="view-compare">
     <h2 class="sec-title">⚖️ Compare them side by side</h2>
-    <p class="sec-sub">Compare within one provider at a time (they differ in area & terms). Swipe sideways on mobile; weekends = Fri–Sun.</p>
+    <p class="sec-sub">Compare within one provider at a time (they differ in area & terms). Swipe sideways on mobile; weekends = Fri–Sun for most (some differ — see each card).</p>
     <div class="provsw" id="cmpProv"></div>
     <div class="tablewrap"><table id="cmpTable"></table></div>
   </section>
@@ -469,6 +469,15 @@ const PROVIDERS={
   yolla:{name:'Yolla Chalets', tag:'Bazouriyeh', color:'#0891b2', link:'https://www.instagram.com/yollachalets', linkLabel:'@yollachalets', linkIcon:'instagram'},
   chaletcheck:{name:'Chalet Check', tag:'Chalet Check', color:'#16a34a', link:'https://www.instagram.com/', linkLabel:'Chalet Check', linkIcon:'instagram'},
   waypoint:{name:'Waypoint Chalet', tag:'Waypoint', color:'#0284c7', link:'https://www.instagram.com/reel/DZZthlWoTcx/', linkLabel:'Waypoint', linkIcon:'instagram'},
+  triochalet:{name:'Trio Chalet', tag:'', color:'#e11d48', link:'https://www.instagram.com/triochalet/', linkLabel:'@triochalet', linkIcon:'instagram'},
+  elements:{name:'Elements Gardens', tag:'', color:'#4d7c0f', link:'https://www.instagram.com/p/DauaAx4jhlO/', linkLabel:'Elements Gardens', linkIcon:'instagram'},
+  mallah:{name:'La Maison de Mallah', tag:'Maghdouché', color:'#0369a1', link:'https://maps.google.com/?q=33.4795829,35.4561941', linkLabel:'Maghdouché · Saida', linkIcon:'map-pin'},
+  aladin:{name:'Aladin House', tag:'Barouk', color:'#b45309', link:'https://www.instagram.com/p/DZmhxwYAOUT/', linkLabel:'Aladin House', linkIcon:'instagram'},
+  infinity:{name:'Infinity Pool', tag:'Pool day-pass', color:'#0d9488', link:'https://www.instagram.com/', linkLabel:'Infinity Pool', linkIcon:'instagram'},
+  cykia:{name:'Cykia Pool', tag:'Pool day-use', color:'#7c3aed', link:'https://www.instagram.com/p/DK8O7HSiEDx/', linkLabel:'Cykia', linkIcon:'instagram'},
+  leaves:{name:'Leaves Chalets', tag:'Ain Qana', color:'#0f766e', link:'https://www.instagram.com/leaveschalets.lb', linkLabel:'@leaveschalets.lb', linkIcon:'instagram'},
+  lacasita:{name:'La Casita', tag:'Deir el-Zahrani', color:'#be185d', link:'https://www.instagram.com/lacasita.lebanon', linkLabel:'@lacasita.lebanon', linkIcon:'instagram'},
+  zaytouna:{name:'Zaytouna Chalet', tag:'Khirbet Selem', color:'#a16207', link:'https://www.instagram.com/', linkLabel:'Zaytouna Chalet', linkIcon:'instagram'},
 };
 /* Local photos: Chalet_Photos 2/<Dir>/{Outdoor,Indoor}/<Prefix>_<Cat>_NN.jpg (outdoor first = nicer hero) */
 const PHOTO_BASE='Chalet_Photos';
@@ -628,6 +637,130 @@ const CHALETS=[
    weekday:200, weekend:250, checkin:'6:00 PM', checkout:'3:00 PM',
    highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ area'},{i:'tv',t:'Smart TV'},{i:'wifi',t:'WiFi'},{i:'snowflake',t:'AC'},{i:'utensils',t:'Equipped kitchen'}],
    avail:[12,18,20,23,26,27,30,31]},
+
+  /* ---- Provider: Trio Chalet (@triochalet). Multiple units — only the available ones listed (Latifa & Souad fully booked). ---- */
+  {id:'trio-ahlam',name:'Ahlam',emoji:'🏕️',color:'#e11d48',
+   tagline:'Sunny chalet for up to 7 — plenty of open August dates.',
+   provider:'triochalet', url:'https://www.instagram.com/triochalet/',
+   beds:null, wc:null, capMin:2, capMax:7, extra:0, pool:null,
+   weekday:250, weekend:300, checkin:null, checkout:null, highlights:[],
+   avail:[2,3,4,5,7,9,10,11,12,13,14,15,16,17,18,19,20,21,23,24,25,26]},
+  {id:'trio-fayrouz',name:'Fayrouz',emoji:'💠',color:'#f43f5e',
+   tagline:'Intimate chalet for two — great value getaway.',
+   provider:'triochalet', url:'https://www.instagram.com/triochalet/',
+   beds:null, wc:null, capMin:1, capMax:2, extra:0, pool:null,
+   weekday:180, weekend:200, checkin:null, checkout:null, highlights:[],
+   avail:[4,5,6,7,9,10,11,12,13,16,17,18,19,20,21,22,23,24,25,26,28]},
+
+  /* ---- Provider: Elements Gardens. Rate is for 6 guests; +$10/guest above 6, up to 20. ---- */
+  {id:'elements',name:'Elements Gardens',emoji:'🌿',color:'#4d7c0f',
+   tagline:'Garden villa with a private pool — hosts 10–12, up to 20 guests.',
+   provider:'elements', location:'Elements Gardens',
+   url:'https://www.instagram.com/p/DauaAx4jhlO/',
+   beds:1, wc:null, capMin:6, capMax:20, extra:0, extraFee:10, baseCap:6, pool:'Private Intex pool',
+   weekday:90, weekend:120, checkin:'2:00 PM', checkout:'12:00 PM',
+   note:'Rate is for 6 guests; +$10/guest above 6 (up to 20). Sleeps 4 overnight (1 bed + 2 sofa beds).',
+   highlights:[{i:'waves',t:'Private pool'},{i:'zap',t:'24/7 electricity'},{i:'flame',t:'Fireplace + BBQ'},{i:'wifi',t:'WiFi + Smart TV'},{i:'trees',t:'Garden & terrace'},{i:'car',t:'Free parking'}],
+   avail:[3,9,10,12,19,22,23,27,28,30]},
+
+  /* ---- Provider: La Maison de Mallah (Maghdouché, Saida). Weekend = Thu–Sat ($300), Sun–Wed $250. ---- */
+  {id:'mallah',name:'La Maison de Mallah',emoji:'🏖️',color:'#0369a1',
+   tagline:'Private-pool villa above Maghdouché — 2 bedrooms, sleeps 10.',
+   provider:'mallah', location:'Arab el-Jal, Maghdouché (Saida)',
+   url:'https://maps.google.com/?q=33.4795829,35.4561941',
+   beds:6, wc:null, capMin:6, capMax:10, extra:0, pool:'9×5 private pool',
+   weekday:250, weekend:300, weekendDays:[4,5,6], checkin:'7:00 PM', checkout:'5:00 PM',
+   note:'Weekend rate ($300) = Thu–Sat; Sun–Wed $250. Max 10 guests · no youth groups.',
+   highlights:[{i:'waves',t:'9×5 private pool'},{i:'bed-double',t:'2 rooms · 6 beds'},{i:'utensils',t:'Full kitchen'},{i:'flame',t:'Outdoor BBQ'},{i:'car',t:'Parking inside'},{i:'snowflake',t:'AC'},{i:'wifi',t:'WiFi'}],
+   avail:[12,16,17,20,21,24,25,26,27,28,31]},
+
+  /* ---- Provider: Aladin House (Barouk). Rent one chalet OR the whole 2-chalet villa. ---- */
+  {id:'aladin',name:'Aladin House',emoji:'🏝️',color:'#b45309',
+   tagline:'Barouk villa split into 2 connected chalets — rent one or the whole villa.',
+   provider:'aladin', location:'Barouk',
+   url:'https://www.instagram.com/p/DZmhxwYAOUT/',
+   beds:2, wc:2, capMin:4, capMax:10, extra:0, pool:'12×4 pool · up to 2.5m deep',
+   weekday:250, weekend:300, checkin:null, checkout:null,
+   note:'One chalet sleeps up to 4; full villa 8–10. Each chalet: bedroom + sofa-bed living room, kitchenette, private bath. Extra beds on request.',
+   highlights:[{i:'waves',t:'12×4 private pool'},{i:'bed-double',t:'2 chalets · sofa beds'},{i:'utensils',t:'Kitchenette'},{i:'door-open',t:'Connecting door'},{i:'shield',t:'Fully private pool'}],
+   avail:[10,11,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]},
+
+  /* ---- Pool-only day-use spots (no overnight stay). Excluded from the overnight "Find my date" finder. ---- */
+  {id:'infinity',name:'Infinity Pool',emoji:'♾️',color:'#0d9488',
+   tagline:'Private-pool day & night packages — no overnight stay.',
+   provider:'infinity', poolOnly:true, onRequest:true,
+   url:'https://www.instagram.com/',
+   beds:null, wc:null, capMin:2, capMax:12, extra:0, extraFee:10, pool:'Private infinity pool',
+   weekday:250, weekend:300, checkin:null, checkout:null,
+   note:'Pool day-pass — no stay. Day use (10a–6p) $250/$300 · Night (7p–1a) $230/$280 · Full day (10a–1a) $350/$400. Max 12 (+$10/extra). Weekend = Fri–Sun.',
+   highlights:[{i:'waves',t:'Private pool'},{i:'utensils',t:'BBQ + stove'},{i:'refrigerator',t:'Fridge'},{i:'umbrella',t:'Shaded seating'},{i:'tv',t:'TV'},{i:'wifi',t:'WiFi'},{i:'dribbble',t:'Basketball court'},{i:'droplets',t:'Jacuzzi 🫧'}],
+   avail:ALL_AUG},
+  {id:'cykia',name:'Cykia Pool',emoji:'🏊',color:'#7c3aed',
+   tagline:'Pool day-use only — weekdays $200, weekends $250.',
+   provider:'cykia', poolOnly:true,
+   url:'https://www.instagram.com/p/DK8O7HSiEDx/',
+   beds:null, wc:null, capMin:2, capMax:12, extra:0, pool:'Private pool',
+   weekday:200, weekend:250, checkin:null, checkout:null,
+   note:'Pool day-use only — no overnight stay. Max group size to confirm on booking.',
+   highlights:[{i:'waves',t:'Private pool'},{i:'sun',t:'Day use'}],
+   avail:[24,25,29]},
+
+  /* ---- Provider: Leaves Chalets (Ain Qana, South Lebanon). Resort of 4 chalets — no public calendar → all on-request (IG). ---- */
+  {id:'leaves-olive',name:'Olive Chalet',emoji:'🫒',color:'#65a30d',
+   tagline:'Loft master with jacuzzi & infinity pool — mountain/sea view, sleeps 8.',
+   provider:'leaves', location:'Ain Qana, South Lebanon', onRequest:true,
+   url:'https://www.instagram.com/leaveschalets.lb',
+   beds:2, wc:2, capMin:2, capMax:8, extra:0, pool:'Infinity pool 9×4.5',
+   weekday:200, weekend:250, checkin:'7:00 PM', checkout:'5:00 PM',
+   highlights:[{i:'waves',t:'Infinity pool 9×4.5'},{i:'droplets',t:'Loft jacuzzi 🫧'},{i:'tv',t:'Netflix'},{i:'wifi',t:'WiFi'},{i:'utensils',t:'BBQ + kitchen'},{i:'snowflake',t:'AC'},{i:'car',t:'Parking'},{i:'wind',t:'Shisha delivery'}],
+   avail:ALL_AUG},
+  {id:'leaves-oak',name:'Oak Chalet',emoji:'🌳',color:'#92400e',
+   tagline:'Master + guest bedroom, salon & infinity pool with panoramic view, sleeps 8.',
+   provider:'leaves', location:'Ain Qana, South Lebanon', onRequest:true,
+   url:'https://www.instagram.com/leaveschalets.lb',
+   beds:2, wc:2, capMin:2, capMax:8, extra:0, pool:'Infinity pool 9×4.5',
+   weekday:200, weekend:250, checkin:'7:00 PM', checkout:'5:00 PM',
+   highlights:[{i:'waves',t:'Infinity pool 9×4.5'},{i:'tv',t:'Netflix'},{i:'wifi',t:'WiFi'},{i:'utensils',t:'BBQ + kitchen'},{i:'snowflake',t:'AC'},{i:'car',t:'Parking'},{i:'wind',t:'Shisha delivery'}],
+   avail:ALL_AUG},
+  {id:'leaves-acer',name:'Acer Chalet',emoji:'🍁',color:'#b91c1c',
+   tagline:'Loft master with jacuzzi & infinity pool — panoramic view, sleeps 8.',
+   provider:'leaves', location:'Ain Qana, South Lebanon', onRequest:true,
+   url:'https://www.instagram.com/leaveschalets.lb',
+   beds:2, wc:2, capMin:2, capMax:8, extra:0, pool:'Infinity pool 9×4.5',
+   weekday:200, weekend:250, checkin:'6:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'waves',t:'Infinity pool 9×4.5'},{i:'droplets',t:'Loft jacuzzi 🫧'},{i:'tv',t:'Netflix'},{i:'wifi',t:'WiFi'},{i:'utensils',t:'BBQ + kitchen'},{i:'snowflake',t:'AC'},{i:'car',t:'Parking'},{i:'wind',t:'Shisha delivery'}],
+   avail:ALL_AUG},
+  {id:'leaves-poplar',name:'Poplar Chalet',emoji:'🌲',color:'#ca8a04',
+   tagline:'Cozy couples’ chalet — master with jacuzzi & overflow pool, panoramic view.',
+   provider:'leaves', location:'Ain Qana, South Lebanon', onRequest:true,
+   url:'https://www.instagram.com/leaveschalets.lb',
+   beds:1, wc:1, capMin:2, capMax:4, extra:0, pool:'Overflow pool 8×4',
+   weekday:120, weekend:150, checkin:'6:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'waves',t:'Overflow pool 8×4'},{i:'droplets',t:'Jacuzzi 🫧'},{i:'tv',t:'Netflix'},{i:'wifi',t:'WiFi'},{i:'utensils',t:'BBQ + kitchen'},{i:'snowflake',t:'AC'}],
+   avail:ALL_AUG},
+
+  /* ---- Provider: La Casita (Deir el-Zahrani, Roumine road, South). Sleeps 8. Price not published → on request. ---- */
+  {id:'lacasita',name:'La Casita',emoji:'🏡',color:'#be185d',
+   tagline:'Family chalet for 8 with a 10×5 pool, garden & BBQ near Deir el-Zahrani.',
+   provider:'lacasita', location:'Deir el-Zahrani, Roumine road (South)',
+   url:'https://www.instagram.com/lacasita.lebanon',
+   beds:2, wc:1, capMin:2, capMax:8, extra:0, pool:'10×5 pool',
+   weekday:null, weekend:null, checkin:'8:00 PM', checkout:'6:00 PM',
+   note:'Price on request (50% deposit to confirm). Rules: no alcohol · no loud speakers/music · no fish grilling · swimwear required.',
+   highlights:[{i:'waves',t:'10×5 pool'},{i:'bed-double',t:'2 rooms · sleeps 8'},{i:'utensils',t:'Kitchen + BBQ'},{i:'wifi',t:'WiFi + satellite'},{i:'zap',t:'24/7 solar power'},{i:'car',t:'Parking'},{i:'trees',t:'Garden'}],
+   avail:[1,4,5,6,7,8,9]},
+
+  /* ---- Provider: Zaytouna Chalet (Khirbet Selem, South, 22km from Tyre). Sleeps 6. Weekend = Fri/Sat. ---- */
+  {id:'zaytouna',name:'Zaytouna Chalet',emoji:'🌿',color:'#a16207',
+   tagline:'Sandyan chalet for 6 with an 8×4 pool & outdoor wood BBQ tent.',
+   provider:'zaytouna', location:'Khirbet Selem, South Lebanon',
+   url:'https://www.instagram.com/',
+   beds:2, wc:1, capMin:2, capMax:6, extra:2, extraFee:10, pool:'8×4 pool',
+   weekday:200, weekend:220, weekendDays:[5,6], checkin:'7:00 PM', checkout:'5:00 PM',
+   dayuse:{flat:100},
+   note:'Sun–Thu $200 · Fri/Sat & holidays $220. Day use $100 (9a–5p). +$10 per extra guest above 6. Available all August weekdays (no Sat/Sun).',
+   highlights:[{i:'waves',t:'8×4 pool'},{i:'bed-double',t:'2 bedrooms'},{i:'tent',t:'Wood BBQ tent'},{i:'utensils',t:'Equipped kitchen'},{i:'salad',t:'Salon & dining'}],
+   avail:[3,4,5,6,7,10,11,12,13,14,17,18,19,20,21,24,25,26,27,28,31]},
 ];
 const EXTRA_GUEST_FEE=10;
 const byId=id=>CHALETS.find(c=>c.id===id);
@@ -650,9 +783,11 @@ function renderProvSwitch(mountId,current,includeAll,onPick){
   icons();
 }
 
-/* weekend = Fri(5) Sat(6) Sun(0) */
-const isWeekend=day=>{const d=new Date(YEAR,MONTH,day).getDay();return d===5||d===6||d===0;};
-const rateFor=(c,day)=>isWeekend(day)?c.weekend:c.weekday;
+/* weekend = Fri(5) Sat(6) Sun(0) by default; a chalet may override with weekendDays (e.g. Mallah = Thu–Sat) */
+const WEEKEND_DAYS=[5,6,0];
+const isWknd=(c,day)=>{const d=new Date(YEAR,MONTH,day).getDay();return ((c&&c.weekendDays)||WEEKEND_DAYS).includes(d);};
+const isWeekend=day=>isWknd(null,day);
+const rateFor=(c,day)=>isWknd(c,day)?c.weekend:c.weekday;
 const fmtDay=day=>new Date(YEAR,MONTH,day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
 
 /* ---------- HELPERS ---------- */
@@ -686,9 +821,13 @@ function renderCards(){
     const openCount=c.avail.length;
     const p=PROVIDERS[c.provider];
     const hasPhoto=c.photos&&c.photos.length;
-    const availBadge=c.onRequest
+    const availBadge=c.poolOnly
+      ? `<span class="avail-badge" style="background:${c.color}"><i data-lucide="waves"></i>Pool day-pass</span>`
+      : c.onRequest
       ? `<span class="avail-badge" style="background:#f59e0b"><i data-lucide="calendar-clock"></i>On request</span>`
       : `<span class="avail-badge" style="background:${openCount>0?'var(--leaf)':'#b9b2c9'}"><i data-lucide="calendar-check"></i>${openCount} free day${openCount!==1?'s':''}</span>`;
+    const perUnit=c.poolOnly?'/day':'/night';
+    const hasPrice=c.weekday!=null;
     // null-safe spec chips
     const specs=[
       `<span class="chip"><i data-lucide="users"></i>${c.capMin}–${c.capMax} guests${c.extra?` (+${c.extra})`:''}</span>`,
@@ -725,16 +864,16 @@ function renderCards(){
         ${c.location?`<div class="loc-chip"><i data-lucide="map-pin"></i>${c.location}</div>`:''}
         <p class="tagline">${c.tagline}</p>
         <div class="specs">${specs}</div>
-        <div class="price-row">
-          <div class="price"><div class="k"><i data-lucide="sun"></i>Weekday</div><div class="v">$${c.weekday}<small>/night</small></div></div>
-          <div class="price"><div class="k"><i data-lucide="party-popper"></i>Weekend</div><div class="v">$${c.weekend}<small>/night</small></div></div>
-        </div>
+        ${hasPrice?`<div class="price-row">
+          <div class="price"><div class="k"><i data-lucide="sun"></i>Weekday</div><div class="v">$${c.weekday}<small>${perUnit}</small></div></div>
+          <div class="price"><div class="k"><i data-lucide="party-popper"></i>Weekend</div><div class="v">$${c.weekend}<small>${perUnit}</small></div></div>
+        </div>`:`<div class="reqnote"><i data-lucide="tag"></i>Price on request — DM to confirm.</div>`}
         ${extraRates}
         ${features}
         ${times}
         ${c.onRequest?`<div class="reqnote"><i data-lucide="info"></i>Availability on request — no public calendar${c.note?`. ${c.note}`:''}</div>`:`
         <div class="miniaug">
-          <div class="label"><i data-lucide="calendar-heart"></i>Free in August</div>
+          <div class="label"><i data-lucide="calendar-heart"></i>${c.poolOnly?'Day-use dates':'Free in August'}</div>
           ${openCount?c.avail.map(d=>`<div class="d">${d}</div>`).join(''):'<span style="font-weight:700;color:var(--ink-soft);font-size:12.5px">Fully booked this month 💛</span>'}
         </div>`}
         ${c.note&&!c.onRequest?`<div class="reqnote" style="margin-top:11px"><i data-lucide="info"></i>${c.note}</div>`:''}
@@ -803,8 +942,10 @@ function renderFinderControls(){
 }
 function costFor(c,day){
   let cost=rateFor(c,day),extra='';
+  if(cost==null)return {cost:null,extra:''}; // price not published (e.g. La Casita) → shown as "DM"
   const fee=c.extraFee||EXTRA_GUEST_FEE;
-  if(fGuests>c.capMax){const over=fGuests-c.capMax;cost+=over*fee;extra=` · +${over}×$${fee} extra`;}
+  const base=c.baseCap||c.capMax; // some places price a base group size then charge per extra (e.g. Elements = 6)
+  if(fGuests>base){const over=fGuests-base;cost+=over*fee;extra=` · +${over}×$${fee} extra`;}
   return {cost,extra};
 }
 function runFinder(){
@@ -813,11 +954,11 @@ function runFinder(){
   // confirmed-calendar chalets (fixed availability, e.g. The Home)
   const dates=[];
   for(let d=1;d<=days;d++){
-    const free=CHALETS.filter(c=>!c.onRequest&&c.avail.includes(d)&&canFit(c,fGuests));
+    const free=CHALETS.filter(c=>!c.onRequest&&!c.poolOnly&&c.avail.includes(d)&&canFit(c,fGuests));
     if(free.length)dates.push({d,free,we:isWeekend(d)});
   }
-  // on-request chalets (no public calendar — confirm on site)
-  const onReq=CHALETS.filter(c=>c.onRequest&&canFit(c,fGuests));
+  // on-request chalets (no public calendar — confirm on site); pool day-use spots are not overnight stays
+  const onReq=CHALETS.filter(c=>c.onRequest&&!c.poolOnly&&canFit(c,fGuests));
 
   if(!dates.length&&!onReq.length){
     box.innerHTML=`<div class="empty"><div class="big">🙈</div>No chalet fits <b>${fGuests} guests</b> in August.<br>Try a smaller crew — or DM us for a custom setup!</div>`;
@@ -834,7 +975,7 @@ function runFinder(){
         return `<div class="crow">
           <div class="cem" style="background:${c.color}22">${c.emoji}</div>
           <div class="cn">${c.name}<small>${c.capMin}–${c.capMax} guests${c.pool?' · '+c.pool:''}${extra}</small></div>
-          <div class="cp" style="color:${c.color}">$${cost}</div>
+          <div class="cp" style="color:${c.color}">${cost!=null?'$'+cost:'DM'}</div>
         </div>`;
       }).join('');
       card.innerHTML=`<div class="dhead">
@@ -919,7 +1060,7 @@ function openDay(d){
   body.innerHTML=`<p class="daysum">✨ ${free.length} chalet${free.length!==1?'s':''} available${nConfirmed<free.length?` (${free.length-nConfirmed} on request)`:''} — tap a card to open its listing.</p>`+
     free.map(c=>{
       const p=PROVIDERS[c.provider];
-      const price=c.onRequest?`<small>from</small>$${c.weekday}`:`$${rateFor(c,d)}`;
+      const price=c.weekday==null?`DM`:c.onRequest?`<small>from</small>$${c.weekday}`:`$${rateFor(c,d)}`;
       const extras=[c.pool,c.dayuse?'day use':null,c.sahra?'sahra':null].filter(Boolean).join(' · ');
       return `<a class="drow" href="${c.url||p.link}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
         <div class="dem" style="background:${c.color}22">${c.emoji}</div>
@@ -928,7 +1069,7 @@ function openDay(d){
           <span class="pv" style="background:${p.color}"><i data-lucide="${p.linkIcon}" style="width:11px;height:11px"></i>${p.name}</span>
           <small>${c.capMin}–${c.capMax} guests${extras?' · '+extras:''}${c.onRequest?' · on request':''}</small>
         </div>
-        <div class="dpr">${price}<small>${c.onRequest?'per night':we?'weekend':'weekday'}</small></div>
+        <div class="dpr">${price}<small>${c.poolOnly?'day use':c.onRequest?'per night':isWknd(c,d)?'weekend':'weekday'}</small></div>
       </a>`;
     }).join('');
   const s=document.getElementById('daySheet');
@@ -957,8 +1098,8 @@ function renderCompare(){
     ['bath','Bathrooms',c=>c.wc?`${c.wc} WC`:'—'],
     ['users','Capacity',c=>`${c.capMin}–${c.capMax}${c.extra?` (+${c.extra})`:''}`],
     ['waves','Pool',c=>c.pool||'—'],
-    ['sun','Weekday',c=>`<b>$${c.weekday}</b>`],
-    ['party-popper','Weekend',c=>`<b>$${c.weekend}</b>`],
+    ['sun','Weekday',c=>c.weekday!=null?`<b>$${c.weekday}</b>`:'—'],
+    ['party-popper','Weekend',c=>c.weekend!=null?`<b>$${c.weekend}</b>`:'—'],
     ['sun','Day use',c=>c.dayuse?(c.dayuse.flat?`$${c.dayuse.flat}`:`$${c.dayuse.wd}/$${c.dayuse.we}`):'—'],
     ['moon','Sahra',c=>c.sahra?`$${c.sahra.price}<br><small>${c.sahra.time}</small>`:'—'],
     ['log-in','Check-in',c=>c.checkin||'—'],
