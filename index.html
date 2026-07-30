@@ -181,6 +181,32 @@ section.view{padding-top:20px;animation:pop .35s ease}
 .provsw button .cnt{background:#f1ecfa;color:var(--ink-soft);border-radius:999px;padding:1px 8px;font-size:11.5px}
 .provsw button.on{color:#fff;border-color:transparent;box-shadow:0 8px 18px -9px rgba(0,0,0,.35)}
 .provsw button.on .cnt{background:rgba(255,255,255,.28);color:#fff}
+/* filter dropdown (multi + single select) */
+.dd{position:relative;display:inline-block;margin-bottom:16px;max-width:100%;vertical-align:top}
+.dd-toggle{cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:#fff;
+  border-radius:999px;padding:9px 15px;font-family:inherit;font-weight:800;font-size:13.5px;color:var(--ink);max-width:100%}
+.dd-toggle:active{transform:scale(.97)}
+.dd-toggle svg{width:16px;height:16px;flex:0 0 auto}
+.dd-sum{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd-chev{color:var(--ink-soft);transition:transform .2s}
+.dd.open .dd-chev{transform:rotate(180deg)}
+.dd-panel{position:absolute;top:calc(100% + 6px);left:0;z-index:60;display:none;min-width:240px;max-width:90vw;
+  max-height:340px;overflow-y:auto;background:#fff;border:1.5px solid var(--line);border-radius:16px;
+  box-shadow:0 20px 44px -14px rgba(30,10,60,.32);padding:6px}
+.dd.open .dd-panel{display:block}
+.dd-opt{width:100%;display:flex;align-items:center;gap:10px;cursor:pointer;border:none;background:none;border-radius:11px;
+  padding:9px 10px;font-family:inherit;font-weight:700;font-size:13.5px;color:var(--ink);text-align:left}
+.dd-opt:hover{background:#f7f3fd}
+.dd-opt.on{background:#f3ecfd}
+.dd-all{border-bottom:1px solid var(--line);border-radius:11px;margin-bottom:3px;font-weight:800}
+.dd-check{width:18px;height:18px;border-radius:6px;border:1.6px solid var(--line);flex:0 0 auto;
+  display:inline-flex;align-items:center;justify-content:center;color:#fff}
+.dd.single .dd-check{border-radius:50%}
+.dd-opt.on .dd-check{background:var(--grape);border-color:var(--grape)}
+.dd-check svg{width:12px;height:12px}
+.dd-dot{width:11px;height:11px;border-radius:50%;flex:0 0 auto}
+.dd-name{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd-cnt{background:#f1ecfa;color:var(--ink-soft);border-radius:999px;padding:1px 8px;font-size:11.5px;font-weight:800;flex:0 0 auto}
 
 /* COMPARE TABLE */
 .tablewrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);background:#fff;-webkit-overflow-scrolling:touch}
@@ -765,22 +791,86 @@ const CHALETS=[
 const EXTRA_GUEST_FEE=10;
 const byId=id=>CHALETS.find(c=>c.id===id);
 const countBy=pid=>CHALETS.filter(c=>c.provider===pid).length;
-let cardsProvider='all';
-let cmpProvider='thehome';
-/* generic provider switch renderer */
-function renderProvSwitch(mountId,current,includeAll,onPick){
-  const m=document.getElementById(mountId);m.innerHTML='';
-  const opts=includeAll?[['all',{name:'All chalets',color:'var(--grape)',linkIcon:'layout-grid'}]]:[];
-  Object.entries(PROVIDERS).forEach(e=>opts.push(e));
-  opts.forEach(([id,p])=>{
-    const on=id===current;
-    const cnt=id==='all'?CHALETS.length:countBy(id);
-    const b=el('button',on?'on':'',`<i data-lucide="${p.linkIcon}"></i>${p.name}${p.tag&&id!=='all'?` · ${p.tag}`:''}<span class="cnt">${cnt}</span>`);
-    if(on)b.style.cssText=`background:${p.color}`;
-    b.onclick=()=>onPick(id);
-    m.appendChild(b);
-  });
-  icons();
+let cardsProviders=new Set(Object.keys(PROVIDERS)); // chalets tab: multi-select providers (all on)
+let cmpProvider='thehome';                          // compare tab: single provider
+
+/* ---------- REUSABLE FILTER DROPDOWN (multi- or single-select) ---------- */
+function closeAllDropdowns(except){
+  document.querySelectorAll('.dd.open').forEach(d=>{if(d!==except&&d._close)d._close();});
+}
+document.addEventListener('click',()=>closeAllDropdowns());
+/* cfg: {label, noun, options:[{id,name,color,count}], multi, selected(Set|string), showCount, onChange} */
+function filterDropdown(cfg){
+  const mount=document.getElementById(cfg.mountId);
+  mount.className='dd'+(cfg.multi?'':' single');
+  mount.innerHTML='';
+  let sel=cfg.selected; // Set (multi) or string (single)
+  const isSel=id=>cfg.multi?sel.has(id):sel===id;
+  const toggle=el('button','dd-toggle');toggle.type='button';
+  toggle.setAttribute('aria-haspopup','listbox');toggle.setAttribute('aria-expanded','false');
+  const panel=el('div','dd-panel');panel.setAttribute('role','listbox');
+  if(cfg.multi)panel.setAttribute('aria-multiselectable','true');
+  const summary=()=>{
+    if(cfg.multi){
+      if(sel.size===cfg.options.length)return `All ${cfg.label}`;
+      if(sel.size===0)return `No ${cfg.label}`;
+      if(sel.size===1)return cfg.options.find(o=>isSel(o.id)).name;
+      return `${sel.size} ${cfg.label}`;
+    }
+    const o=cfg.options.find(x=>x.id===sel);
+    return o?(o.name+(cfg.showCount&&o.count!=null?` · ${o.count} chalet${o.count!==1?'s':''}`:'')):`Pick ${cfg.noun}`;
+  };
+  const paintToggle=()=>{
+    toggle.setAttribute('aria-label',`Filter by ${cfg.noun} — ${summary()}`);
+    toggle.setAttribute('title',`Filter by ${cfg.noun}`);
+    toggle.innerHTML=`<i data-lucide="${cfg.multi?'list-filter':'filter'}"></i><span class="dd-sum">${summary()}</span><i data-lucide="chevron-down" class="dd-chev"></i>`;
+    icons();
+  };
+  const paintOpts=()=>{
+    panel.innerHTML='';
+    if(cfg.multi){
+      const allOn=sel.size===cfg.options.length;
+      const a=el('button','dd-opt dd-all'+(allOn?' on':''));a.type='button';
+      a.innerHTML=`<span class="dd-check">${allOn?'<i data-lucide="check"></i>':''}</span><span class="dd-name">All ${cfg.label}</span><span class="dd-cnt">${cfg.options.length}</span>`;
+      a.onclick=e=>{e.stopPropagation();if(allOn)sel.clear();else cfg.options.forEach(o=>sel.add(o.id));commit();};
+      panel.appendChild(a);
+    }
+    cfg.options.forEach(o=>{
+      const on=isSel(o.id);
+      const b=el('button','dd-opt'+(on?' on':''));b.type='button';
+      b.setAttribute('role','option');b.setAttribute('aria-selected',on?'true':'false');
+      b.innerHTML=`<span class="dd-check">${on?'<i data-lucide="check"></i>':''}</span>`+
+        (o.color?`<span class="dd-dot" style="background:${o.color}"></span>`:'')+
+        `<span class="dd-name">${o.name}</span>`+
+        (o.count!=null?`<span class="dd-cnt">${o.count}</span>`:'');
+      b.onclick=e=>{
+        e.stopPropagation();
+        if(cfg.multi){ isSel(o.id)?sel.delete(o.id):sel.add(o.id); commit(); }
+        else if(sel!==o.id){ sel=o.id; commit(); close(); }
+        else close();
+      };
+      panel.appendChild(b);
+    });
+    icons();
+  };
+  function commit(){ paintOpts(); paintToggle(); cfg.onChange(sel); }
+  function open(){ closeAllDropdowns(mount); mount.classList.add('open'); toggle.setAttribute('aria-expanded','true'); }
+  function close(){ mount.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+  mount._close=close;
+  toggle.onclick=e=>{ e.stopPropagation(); mount.classList.contains('open')?close():open(); };
+  panel.onclick=e=>e.stopPropagation();
+  mount.appendChild(toggle);mount.appendChild(panel);
+  paintToggle();paintOpts();
+}
+const provOptions=()=>Object.entries(PROVIDERS).map(([id,p])=>({id,name:p.name,color:p.color,count:countBy(id)}));
+function initFilters(){
+  filterDropdown({mountId:'cardsProv',label:'providers',noun:'provider',multi:true,selected:cardsProviders,
+    options:provOptions(),onChange:()=>renderCards()});
+  filterDropdown({mountId:'calFilter',label:'chalets',noun:'chalet',multi:true,selected:calActive,
+    options:CHALETS.map(c=>({id:c.id,name:c.name.replace('The ',''),color:c.color,count:c.avail.length})),
+    onChange:()=>renderCalGrid()});
+  filterDropdown({mountId:'cmpProv',label:'provider',noun:'provider',multi:false,selected:cmpProvider,showCount:true,
+    options:provOptions(),onChange:id=>{cmpProvider=id;renderCompare();}});
 }
 
 /* weekend = Fri(5) Sat(6) Sun(0) by default; a chalet may override with weekendDays (e.g. Mallah = Thu–Sat) */
@@ -811,10 +901,13 @@ function renderHero(){
 
 /* ---------- CHALET CARDS ---------- */
 function renderCards(){
-  renderProvSwitch('cardsProv',cardsProvider,true,id=>{cardsProvider=id;renderCards();});
   const wrap=document.getElementById('cards');
   wrap.innerHTML='';
-  const filtered=(cardsProvider==='all'?CHALETS:CHALETS.filter(c=>c.provider===cardsProvider))
+  if(cardsProviders.size===0){
+    wrap.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="big">🔍</div>No providers selected — pick one or more from the filter above.</div>`;
+    icons();return;
+  }
+  const filtered=CHALETS.filter(c=>cardsProviders.has(c.provider))
     .slice().sort((a,b)=>(b.featured?1:0)-(a.featured?1:0)); // favorites pinned to top
   filtered.forEach(c=>{
     const grad=`linear-gradient(135deg,${c.color},${shade(c.color,-18)})`;
@@ -1005,24 +1098,7 @@ function runFinder(){
 /* ---------- CALENDAR ---------- */
 let calActive=new Set(CHALETS.map(c=>c.id));
 function renderCalFilter(){
-  const f=document.getElementById('calFilter');
-  f.innerHTML='';
-  const all=el('div','cf'+(calActive.size===CHALETS.length?' on':''),`<i data-lucide="sparkles" style="width:13px;height:13px"></i> All`);
-  if(calActive.size===CHALETS.length)all.style.cssText='background:linear-gradient(135deg,var(--sun),var(--berry));color:#fff';
-  all.onclick=()=>{calActive=new Set(CHALETS.map(c=>c.id));renderCalFilter();renderCalGrid();};
-  f.appendChild(all);
-  CHALETS.forEach(c=>{
-    const on=calActive.has(c.id);
-    const b=el('div','cf'+(on?' on':''),`<span class="dot" style="background:${c.color}"></span>${c.name.replace('The ','')}`);
-    if(on)b.style.cssText=`background:${c.color};color:#fff`;
-    b.onclick=()=>{
-      if(calActive.has(c.id))calActive.delete(c.id);else calActive.add(c.id);
-      if(calActive.size===0)calActive=new Set(CHALETS.map(x=>x.id));
-      renderCalFilter();renderCalGrid();
-    };
-    f.appendChild(b);
-  });
-  // legend
+  // chalet multi-select is a dropdown built in initFilters(); here we render the legend
   const lg=document.getElementById('calLegend');
   lg.innerHTML=CHALETS.map(c=>`<span><i class="${c.onRequest?'req':''}" style="${c.onRequest?`border:2px solid ${c.color};background:transparent`:`background:${c.color}`}"></i>${c.name.replace('The ','')}</span>`).join('')
     +`<span><i class="req" style="border:2px solid var(--ink-soft);background:transparent"></i>hollow = on request</span>`
@@ -1088,7 +1164,6 @@ function initDaySheet(){
 
 /* ---------- COMPARE (by provider) ---------- */
 function renderCompare(){
-  renderProvSwitch('cmpProv',cmpProvider,false,id=>{cmpProvider=id;renderCompare();});
   const t=document.getElementById('cmpTable');
   const list=CHALETS.filter(c=>c.provider===cmpProvider);
   const head=`<thead><tr><th></th>${list.map(c=>`<th class="ch"><span class="em">${c.emoji}</span>${c.name}</th>`).join('')}</tr></thead>`;
@@ -1142,6 +1217,7 @@ function boot(){
   icons();
   setTimeout(()=>{ // brief skeleton so first paint feels intentional, then hydrate
     renderHero();
+    initFilters();
     renderCards();
     renderFinderControls();runFinder();
     renderCalFilter();renderCalGrid();
