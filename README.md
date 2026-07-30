@@ -4,7 +4,7 @@ A single-page web app to browse and compare August 2026 chalet rentals in Lebano
 availability calendars, pricing, photo galleries, capacity, and amenities across
 multiple providers.
 
-**🔗 Live site: https://chalet-finder.pages.dev**
+**🔗 Live site: https://chalet-finder-5sr.pages.dev/**
 
 ## What it is
 
