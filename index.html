@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#ff7a59" />
+<title>Chalet Finder ✨ Bqaatouta Getaways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root{
+  --font-display:'Baloo 2',system-ui,sans-serif;
+  --font-body:'Nunito',system-ui,sans-serif;
+  --sun:#ff7a59; --sun2:#ffb14e; --sky:#4fb0ff; --leaf:#3ec98a;
+  --grape:#8b5cf6; --berry:#ff5d8f;
+  --ink:#2b2440; --ink-soft:#6d6785; --line:#efe9f6;
+  --bg:#fff8f2; --card:#ffffff;
+  --ok:#3ec98a; --ok-soft:#e7fbf1; --no:#e9e4f0;
+  --shadow:0 10px 30px -12px rgba(80,50,120,.28);
+  --shadow-lg:0 26px 60px -20px rgba(80,50,120,.42);
+  --radius:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+button,a{touch-action:manipulation}
+body{
+  font-family:var(--font-body);color:var(--ink);
+  background:
+    radial-gradient(1200px 500px at 80% -10%,#fff0e6 0,transparent 60%),
+    radial-gradient(1000px 500px at -10% 10%,#eaf6ff 0,transparent 55%),
+    var(--bg);
+  -webkit-font-smoothing:antialiased;padding-bottom:96px;overflow-x:hidden;
+}
+/* pressed feedback on all tappables */
+.tab:active,.cf:active,.cf,.provsw button:active,.seg button:active,.loc:active,.sitebtn:active,.daypick .dp:active,.lb-nav:active,.lb-close:active{transition:transform .08s}
+.tab:active,.provsw button:active,.seg button:active,.loc:active,.sitebtn:active,.cf:active{transform:scale(.95)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+h1,h2,h3,.disp{font-family:var(--font-display)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+a{color:inherit}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(135deg,var(--sun) 0%,var(--berry) 55%,var(--grape) 100%);
+  border-radius:0 0 34px 34px;box-shadow:var(--shadow-lg);padding:22px 0 26px}
+.hero .wrap{position:relative;z-index:2}
+.blob{position:absolute;border-radius:50%;filter:blur(8px);opacity:.35;z-index:1}
+.b1{width:200px;height:200px;background:#fff;top:-70px;right:-40px}
+.b2{width:150px;height:150px;background:var(--sun2);bottom:-60px;left:-30px;opacity:.5}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.3px}
+.brand .logo{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.22);
+  display:grid;place-items:center;backdrop-filter:blur(4px)}
+.hero h1{font-size:clamp(26px,7vw,40px);margin:14px 0 6px;line-height:1.05;font-weight:800}
+.hero p{margin:0;opacity:.95;font-weight:600;font-size:15px;max-width:44ch}
+.loc{display:inline-flex;align-items:center;gap:7px;margin-top:14px;background:rgba(255,255,255,.2);
+  padding:8px 13px;border-radius:999px;font-weight:700;font-size:13.5px;text-decoration:none;
+  border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(4px);transition:transform .15s,background .15s}
+.loc:hover{transform:translateY(-2px);background:rgba(255,255,255,.32)}
+.hero-stats{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+  padding:7px 12px;border-radius:999px;font-weight:700;font-size:12.5px;display:flex;gap:6px;align-items:center}
+
+/* TABS */
+.tabs{position:sticky;top:0;z-index:30;background:rgba(255,248,242,.86);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--line);margin-top:14px}
+.tabs .wrap{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;border:none;cursor:pointer;font-family:var(--font-display);font-weight:700;
+  font-size:14.5px;color:var(--ink-soft);background:#fff;border:1.5px solid var(--line);
+  padding:9px 15px;border-radius:999px;display:flex;align-items:center;gap:7px;transition:all .18s;white-space:nowrap}
+.tab svg{width:17px;height:17px}
+.tab.active{color:#fff;background:linear-gradient(135deg,var(--sun),var(--berry));border-color:transparent;
+  box-shadow:0 8px 18px -8px var(--berry);transform:translateY(-1px)}
+.tab{white-space:nowrap}
+.lbl-short{display:none}
+
+section.view{padding-top:20px;animation:pop .35s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hide{display:none}
+
+.sec-title{font-size:20px;font-weight:800;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+.sec-sub{color:var(--ink-soft);font-weight:600;margin:0 0 16px;font-size:14px}
+
+/* CARDS */
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:680px){.grid{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+  border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+/* favorite / pinned card — gold */
+.card.featured{position:relative;border:2px solid #e0a400;box-shadow:0 14px 34px -14px rgba(224,164,0,.55)}
+.card.featured::before{content:'';position:absolute;inset:0;border-radius:var(--radius);pointer-events:none;
+  box-shadow:inset 0 0 0 4px rgba(255,209,102,.35);z-index:3}
+.fav-ribbon{position:absolute;top:12px;left:50%;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:5px;
+  background:linear-gradient(135deg,#ffd166,#e0a400);color:#5b3d00;font-family:var(--font-display);font-weight:800;
+  font-size:11.5px;padding:5px 12px;border-radius:999px;box-shadow:0 8px 16px -6px rgba(224,164,0,.7);white-space:nowrap}
+.fav-ribbon svg{width:13px;height:13px}
+.thumb{height:150px;position:relative;display:grid;place-items:center;color:#fff;overflow:hidden}
+.thumb .emoji{font-size:54px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2))}
+.thumb .tag{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.92);color:var(--ink);
+  font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px;font-family:var(--font-display);display:flex;gap:5px;align-items:center}
+.thumb .tag svg{width:14px;height:14px}
+.avail-badge{position:absolute;top:12px;right:12px;font-weight:800;font-size:11.5px;padding:5px 10px;border-radius:999px;
+  font-family:var(--font-display);color:#fff;display:flex;align-items:center;gap:5px}
+.avail-badge svg{width:13px;height:13px}
+.cbody{padding:15px 16px 17px}
+.cbody h3{margin:0 0 3px;font-size:19px;font-weight:800}
+.tagline{color:var(--ink-soft);font-weight:600;font-size:13px;margin:0 0 12px;min-height:2.4em}
+.specs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
+.chip{background:#faf6ff;border:1px solid var(--line);border-radius:11px;padding:6px 10px;font-weight:700;
+  font-size:12.5px;display:flex;align-items:center;gap:6px;color:var(--ink)}
+.chip svg{width:15px;height:15px;color:var(--grape)}
+.price-row{display:flex;gap:10px;margin-bottom:13px}
+.price{flex:1;background:linear-gradient(135deg,#fff6ef,#fff);border:1px solid var(--line);border-radius:14px;padding:9px 12px}
+.price .k{font-size:11px;color:var(--ink-soft);font-weight:700;text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:center;gap:5px}
+.price .k svg{width:13px;height:13px}
+.price .v{font-family:var(--font-display);font-weight:800;font-size:20px}
+.price .v small{font-size:12px;color:var(--ink-soft);font-weight:700}
+.miniaug{display:flex;flex-wrap:wrap;gap:4px}
+.miniaug .d{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-weight:800;
+  font-size:11.5px;background:var(--ok-soft);color:#16855a;border:1px solid #cdf3e0}
+.miniaug .label{width:100%;font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:2px;display:flex;align-items:center;gap:6px}
+.miniaug .label svg{width:14px;height:14px;color:var(--leaf)}
+/* FEATURES block */
+.features{background:linear-gradient(135deg,#fdf4ff,#f3f9ff);border:1px solid #ede4fb;border-radius:16px;padding:11px 12px;margin-bottom:13px}
+.flabel{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--grape);display:flex;align-items:center;gap:6px;margin-bottom:9px}
+.flabel svg{width:15px;height:15px}
+.fchips{display:flex;flex-wrap:wrap;gap:7px}
+.fchip{background:#fff;border:1.5px solid #ece3fb;border-radius:11px;padding:6px 10px;font-weight:800;font-size:12.5px;
+  display:flex;align-items:center;gap:6px;color:var(--ink);box-shadow:0 3px 8px -6px rgba(139,92,246,.5)}
+.fchip svg{width:15px;height:15px;color:var(--berry)}
+
+/* FINDER */
+.panel{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:18px;margin-bottom:18px}
+.field{margin-bottom:15px}
+.field label{display:flex;align-items:center;gap:7px;font-weight:800;font-size:14px;margin-bottom:9px;font-family:var(--font-display)}
+.field label svg{width:17px;height:17px;color:var(--sun)}
+.seg{display:flex;gap:7px;flex-wrap:wrap}
+.seg button{cursor:pointer;border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:9px 13px;
+  font-weight:700;font-size:13.5px;font-family:var(--font-body);color:var(--ink);transition:all .15s}
+.seg button.on{background:linear-gradient(135deg,var(--sky),var(--leaf));color:#fff;border-color:transparent;box-shadow:0 6px 14px -8px var(--sky)}
+.daypick{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.daypick .dp{aspect-ratio:1;border:1.5px solid var(--line);background:#fff;border-radius:11px;font-weight:800;
+  cursor:pointer;font-family:var(--font-display);font-size:14px;color:var(--ink);transition:all .13s;position:relative}
+.daypick .dp:hover:not(:disabled){transform:scale(1.06);border-color:var(--sun)}
+.daypick .dp:disabled{opacity:.32;cursor:not-allowed}
+.daypick .dp.sel{background:linear-gradient(135deg,var(--sun),var(--berry));color:#fff;border-color:transparent}
+.daypick .dp.we::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--sun2)}
+.dow{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:6px}
+.dow span{text-align:center;font-weight:800;font-size:11px;color:var(--ink-soft);text-transform:uppercase}
+.result{margin-top:6px}
+.rescard{display:flex;align-items:center;gap:13px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--shadow);animation:pop .3s ease}
+.rescard .ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;flex:0 0 auto}
+.rescard .info{flex:1;min-width:0}
+.rescard .info b{font-family:var(--font-display);font-size:16px;font-weight:800;display:block}
+.rescard .info span{color:var(--ink-soft);font-weight:600;font-size:12.5px}
+.rescard .cost{text-align:right;font-family:var(--font-display);font-weight:800;font-size:18px;white-space:nowrap}
+.rescard .cost small{display:block;font-size:10.5px;color:var(--ink-soft);font-weight:700}
+.empty{text-align:center;padding:26px 14px;color:var(--ink-soft);font-weight:700}
+.empty .big{font-size:46px;margin-bottom:6px}
+/* DATE CARDS (finder) */
+.datecard{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:13px 15px;margin-bottom:12px;animation:pop .3s ease}
+.datecard .dhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.datecard .dt{font-family:var(--font-display);font-weight:800;font-size:15px;display:flex;align-items:center;gap:9px}
+.datecard .dnum{width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,var(--sun),var(--berry));color:#fff;display:grid;place-items:center;font-size:15px}
+.datecard .wetag{font-weight:800;font-size:11px;padding:4px 10px;border-radius:999px}
+.crow{display:flex;align-items:center;gap:11px;padding:9px 0 8px;border-top:1px dashed var(--line)}
+.crow .cem{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;font-size:20px;flex:0 0 auto}
+.crow .cn{flex:1;font-family:var(--font-display);font-weight:800;font-size:14.5px}
+.crow .cn small{display:block;font-family:var(--font-body);color:var(--ink-soft);font-weight:600;font-size:11.5px;margin-top:1px}
+.crow .cp{font-family:var(--font-display);font-weight:800;font-size:16px;white-space:nowrap}
+
+/* PROVIDER SWITCH */
+.provsw{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.provsw button{cursor:pointer;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 15px;
+  font-family:var(--font-display);font-weight:800;font-size:13.5px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;transition:all .16s}
+.provsw button svg{width:15px;height:15px}
+.provsw button .cnt{background:#f1ecfa;color:var(--ink-soft);border-radius:999px;padding:1px 8px;font-size:11.5px}
+.provsw button.on{color:#fff;border-color:transparent;box-shadow:0 8px 18px -9px rgba(0,0,0,.35)}
+.provsw button.on .cnt{background:rgba(255,255,255,.28);color:#fff}
+
+/* COMPARE TABLE */
+.tablewrap{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);background:#fff;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:12px 13px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px}
+thead th{position:sticky;top:0;background:#fff;z-index:2}
+thead th.ch{font-family:var(--font-display);font-weight:800;font-size:14.5px}
+thead th .em{font-size:20px;display:block;margin-bottom:2px}
+tbody th{font-family:var(--font-display);font-weight:800;color:var(--ink-soft);white-space:nowrap;background:#fdfbff;position:sticky;left:0;z-index:1}
+tbody th .ic{display:inline-flex;vertical-align:-3px;margin-right:6px}
+tbody th svg{width:15px;height:15px;color:var(--grape)}
+tbody tr:nth-child(even) td{background:#fdfcff}
+td b{font-family:var(--font-display)}
+.count-badge{display:inline-flex;align-items:center;gap:5px;font-weight:800;padding:3px 9px;border-radius:999px;font-size:12.5px}
+
+/* CALENDAR */
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 14px;font-weight:700;font-size:12.5px;color:var(--ink-soft)}
+.legend i{width:13px;height:13px;border-radius:5px;display:inline-block;vertical-align:-2px;margin-right:5px}
+.chalet-filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.cf{cursor:pointer;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-weight:800;
+  font-size:12.5px;font-family:var(--font-display);color:var(--ink-soft);display:flex;gap:6px;align-items:center;transition:all .15s}
+.cf .dot{width:11px;height:11px;border-radius:50%}
+.cf.on{color:#fff;border-color:transparent}
+.calpanel{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:16px}
+.calhead{display:flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-display);font-weight:800;font-size:18px;margin-bottom:14px}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.cal .cell{min-height:60px;border-radius:13px;border:1px solid var(--line);padding:6px;position:relative;background:#fdfcff}
+.cal .cell.empty-cell{background:transparent;border:none}
+.cal .cell.weekend{background:#fff7ef}
+.cal .num{font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--ink)}
+.cal .we-dot{font-size:9px;color:var(--sun);font-weight:800}
+.cal .dots{display:flex;flex-wrap:wrap;gap:3px;margin-top:5px}
+.cal .dots .dd{width:10px;height:10px;border-radius:50%;box-shadow:0 1px 2px rgba(0,0,0,.15)}
+.cal .dots .dd.req{background:transparent!important;border:2px solid;box-shadow:none}
+.legend i.req{background:transparent}
+.sitebtn{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:9px;padding:9px;border-radius:12px;
+  background:#f4f2ff;border:1.5px solid #e4dffb;color:var(--grape);font-weight:800;font-size:13px;text-decoration:none;font-family:var(--font-display);transition:all .15s}
+.sitebtn:hover{background:var(--grape);color:#fff;border-color:transparent}
+.sitebtn svg{width:15px;height:15px}
+.prov-badge{position:absolute;top:12px;left:12px;background:rgba(0,0,0,.42);color:#fff;font-weight:800;font-size:10.5px;
+  padding:4px 9px;border-radius:999px;font-family:var(--font-display);display:flex;gap:5px;align-items:center;backdrop-filter:blur(3px)}
+.prov-badge svg{width:12px;height:12px}
+.card .thumb.photo{background-size:cover;background-position:center;cursor:zoom-in}
+.card .thumb.photo .emoji{display:none}
+.card .thumb.photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),transparent 45%,rgba(0,0,0,.12))}
+.photo-count{position:absolute;bottom:12px;right:12px;z-index:2;background:rgba(0,0,0,.55);color:#fff;font-weight:800;
+  font-size:12px;padding:5px 10px;border-radius:999px;font-family:var(--font-display);display:flex;align-items:center;gap:5px;backdrop-filter:blur(3px)}
+.photo-count svg{width:14px;height:14px}
+/* DAY DRILL-DOWN SHEET */
+.sheet{position:fixed;inset:0;z-index:180;display:none;align-items:flex-end;justify-content:center;
+  background:rgba(20,12,30,.55);backdrop-filter:blur(3px)}
+.sheet.open{display:flex}
+.sheet.open .sheet-card{animation:sheetUp .28s cubic-bezier(.22,1,.36,1)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.sheet-card{width:100%;max-width:520px;background:var(--bg);border-radius:24px 24px 0 0;box-shadow:var(--shadow-lg);
+  max-height:82vh;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom)}
+.sheet-handle{width:44px;height:5px;border-radius:999px;background:#d9d0e6;margin:10px auto 4px}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 12px;border-bottom:1px solid var(--line)}
+.sheet-head #dayTitle{font-family:var(--font-display);font-weight:800;font-size:17px}
+.sheet-close{width:36px;height:36px;border-radius:50%;border:none;background:#f0eaf6;color:var(--ink);cursor:pointer;display:grid;place-items:center}
+.sheet-close svg{width:19px;height:19px}
+.sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 22px}
+.drow{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:15px;padding:11px 13px;margin-bottom:10px;box-shadow:var(--shadow)}
+.drow .dem{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:21px;flex:0 0 auto}
+.drow .din{flex:1;min-width:0}
+.drow .din b{font-family:var(--font-display);font-size:15px;font-weight:800;display:block}
+.drow .din .pv{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;color:#fff;padding:2px 7px;border-radius:999px;margin-top:3px}
+.drow .din small{display:block;color:var(--ink-soft);font-weight:600;font-size:12px;margin-top:4px}
+.drow .dpr{text-align:right;font-family:var(--font-display);font-weight:800;font-size:17px;white-space:nowrap}
+.drow .dpr small{display:block;font-size:10px;color:var(--ink-soft);font-weight:700}
+.daysum{font-weight:700;color:var(--ink-soft);font-size:13.5px;margin:0 0 14px}
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;z-index:200;background:rgba(20,12,30,.94);display:none;align-items:center;justify-content:center;
+  padding:20px;backdrop-filter:blur(6px)}
+.lightbox.open{display:flex;animation:pop .2s ease}
+.lb-img{max-width:100%;max-height:82vh;border-radius:16px;box-shadow:0 30px 80px -20px rgba(0,0,0,.7);object-fit:contain;user-select:none}
+.lb-close{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center;transition:background .15s}
+.lb-close:hover{background:rgba(255,255,255,.3)}
+.lb-close svg{width:22px;height:22px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.15);color:#fff;display:grid;place-items:center;transition:background .15s;z-index:2}
+.lb-nav:hover{background:rgba(255,255,255,.32)}
+.lb-nav svg{width:26px;height:26px}
+.lb-nav.prev{left:12px}.lb-nav.next{right:12px}
+.lb-meta{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#fff;font-family:var(--font-display);font-weight:800;font-size:14px;display:flex;flex-direction:column;gap:2px}
+.lb-meta #lbCount{font-family:var(--font-body);font-weight:700;font-size:12.5px;opacity:.8}
+@media(max-width:520px){.lb-nav{width:40px;height:40px}.lb-nav svg{width:22px;height:22px}}
+.reqnote{display:flex;align-items:center;gap:7px;background:#fff7ec;border:1px solid #ffe3bf;color:#a9600d;
+  border-radius:12px;padding:8px 11px;font-weight:800;font-size:12.5px;font-family:var(--font-display)}
+.reqnote svg{width:15px;height:15px;flex:0 0 auto}
+.loc-chip{display:inline-flex;align-items:center;gap:5px;color:var(--ink-soft);font-weight:700;font-size:12.5px;margin:-2px 0 10px}
+.loc-chip svg{width:14px;height:14px;color:var(--sun)}
+.extra-rates{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:13px}
+.extra-rates .er{background:#f0f9f4;border:1px solid #d5efe0;border-radius:11px;padding:6px 10px;font-weight:800;
+  font-size:12px;display:flex;align-items:center;gap:6px;color:#15803d}
+.extra-rates .er svg{width:14px;height:14px}
+.cal .cell.none{opacity:.55}
+.cal .cnt{position:absolute;bottom:5px;right:6px;font-size:9.5px;font-weight:800;color:var(--ink-soft)}
+.cal .cell.hot{outline:2px solid #ffb14e;outline-offset:-2px;background:linear-gradient(135deg,#fff6e3,#fffdf7)}
+.cal .star{position:absolute;top:4px;right:5px;font-size:12px;line-height:1}
+@media(max-width:520px){.cal .cell{min-height:52px;padding:5px}.cal .dots .dd{width:8px;height:8px}}
+
+/* SKELETON */
+.sk{background:linear-gradient(100deg,#f0eaf6 30%,#f8f4fd 50%,#f0eaf6 70%);background-size:200% 100%;
+  animation:sh 1.2s infinite;border-radius:14px}
+@keyframes sh{from{background-position:200% 0}to{background-position:-200% 0}}
+.sk-card{height:330px;border-radius:var(--radius)}
+
+/* TOOLTIP */
+[data-tip]{position:relative}
+[data-tip]:hover::after,[data-tip]:focus-visible::after{
+  content:attr(data-tip);position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);
+  background:var(--ink);color:#fff;font-size:11.5px;font-weight:700;font-family:var(--font-body);
+  padding:5px 9px;border-radius:8px;white-space:nowrap;z-index:60;pointer-events:none;box-shadow:var(--shadow)}
+[data-tip]:hover::before,[data-tip]:focus-visible::before{
+  content:'';position:absolute;bottom:calc(100% + 3px);left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:var(--ink);z-index:60}
+
+footer{text-align:center;color:var(--ink-soft);font-weight:700;font-size:12.5px;padding:24px 16px 8px}
+footer .heart{color:var(--berry)}
+
+/* ============ MOBILE OPTIMIZATION ============ */
+@media(max-width:680px){
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+  .wrap{padding:0 14px}
+  /* hero: tighter, safe-area aware */
+  .hero{border-radius:0 0 28px 28px;padding:calc(16px + env(safe-area-inset-top)) 0 22px}
+  .hero h1{font-size:26px}
+  .hero p{font-size:14px}
+  .b1{width:150px;height:150px}
+  .hero-stats{gap:6px}
+  .pill{font-size:11.5px;padding:6px 10px}
+  .loc{padding:9px 13px;font-size:13px}
+
+  /* TABS become a fixed bottom nav (thumb-reachable) */
+  .tabs{position:fixed;top:auto;bottom:0;left:0;right:0;margin-top:0;z-index:120;
+    background:rgba(255,255,255,.94);border-top:1px solid var(--line);border-bottom:none;
+    box-shadow:0 -8px 24px -14px rgba(80,50,120,.35);padding-bottom:env(safe-area-inset-bottom)}
+  .tabs .wrap{padding:7px 6px 6px;gap:2px;justify-content:space-between;overflow:visible}
+  .tab{flex:1;flex-direction:column;gap:3px;min-width:0;padding:6px 2px;border:none;background:transparent;
+    color:var(--ink-soft);font-size:10.5px;border-radius:14px;box-shadow:none}
+  .tab svg{width:23px;height:23px}
+  .tab.active{background:transparent;color:var(--berry);box-shadow:none;transform:none}
+  .tab.active svg{filter:drop-shadow(0 3px 6px rgba(255,93,143,.5))}
+  .lbl-full{display:none}.lbl-short{display:inline}
+
+  /* content */
+  section.view{padding-top:16px}
+  .sec-title{font-size:18px}
+  .grid{gap:13px}
+  .thumb{height:170px}
+  .cbody{padding:14px 14px 16px}
+  .cbody h3{font-size:18px}
+
+  /* horizontal scrollers: snap + momentum */
+  .provsw,.chalet-filter{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scroll-snap-type:x proximity;scrollbar-width:none;padding-bottom:2px;margin-left:-14px;margin-right:-14px;padding-left:14px;padding-right:14px}
+  .provsw::-webkit-scrollbar,.chalet-filter::-webkit-scrollbar{display:none}
+  .provsw button,.cf{flex:0 0 auto;scroll-snap-align:start}
+  .provsw button{padding:10px 15px}
+  .cf{padding:9px 14px;font-size:13px}
+
+  /* bigger touch targets */
+  .seg button{padding:11px 15px;font-size:14px}
+  .daypick{gap:5px}
+  .sitebtn{padding:12px}
+
+  /* calendar readability */
+  .calpanel{padding:12px}
+  .cal{gap:5px}
+  .cal .cell{min-height:56px;padding:5px}
+  .cal .dots .dd{width:9px;height:9px}
+  .legend{gap:9px;font-size:12px}
+
+  /* lightbox full-bleed */
+  .lightbox{padding:0}
+  .lb-img{max-height:100vh;border-radius:0}
+  .lb-close{top:calc(12px + env(safe-area-inset-top))}
+}
+/* bottom-nav: CSS grid = four truly-equal columns that always fit (beats flexbox min-content trap) */
+@media(max-width:680px){
+  .tabs .wrap{display:grid !important;grid-template-columns:repeat(4,minmax(0,1fr)) !important;gap:2px !important;overflow:hidden !important}
+  .tabs .wrap .tab{min-width:0 !important;overflow:hidden !important;align-items:center !important}
+}
+@media(max-width:380px){
+  .hero h1{font-size:23px}
+  .tab{font-size:9.5px}
+  .price .v{font-size:18px}
+  .cal .cell{min-height:50px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap">
+    <div class="brand"><span class="logo"><i data-lucide="tent-tree"></i></span> Chalet Finder</div>
+    <h1>Find your perfect chalet escape 🏡✨</h1>
+    <p id="heroSub">Compare availability &amp; prices across every chalet &amp; provider — then grab the perfect free date. 🌿</p>
+    <div class="hero-stats" id="heroStats" style="margin-top:16px"></div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <div class="wrap">
+    <button class="tab active" data-view="chalets"><i data-lucide="layout-grid"></i>Chalets</button>
+    <button class="tab" data-view="finder"><i data-lucide="wand-sparkles"></i><span class="lbl-full">Find my date</span><span class="lbl-short">Find</span></button>
+    <button class="tab" data-view="calendar"><i data-lucide="calendar-days"></i>Calendar</button>
+    <button class="tab" data-view="compare"><i data-lucide="scale"></i>Compare</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <!-- CHALETS -->
+  <section class="view" id="view-chalets">
+    <h2 class="sec-title">🏡 Meet the family of chalets</h2>
+    <p class="sec-sub">Each one has its own private pool, BBQ & play area. Filter by provider, or browse them all.</p>
+    <div class="provsw" id="cardsProv"></div>
+    <div class="grid" id="cards"></div>
+  </section>
+
+  <!-- FINDER -->
+  <section class="view hide" id="view-finder">
+    <h2 class="sec-title">🪄 Find my perfect date</h2>
+    <p class="sec-sub">Pick your crew size — we'll instantly list every free date in August with the chalets that fit and the price per night.</p>
+    <div class="panel">
+      <div class="field" style="margin-bottom:0">
+        <label><i data-lucide="users"></i> How many guests?</label>
+        <div class="seg" id="guestSeg"></div>
+      </div>
+    </div>
+    <div class="result" id="finderResult"></div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="view hide" id="view-calendar">
+    <h2 class="sec-title">📅 Availability at a glance</h2>
+    <p class="sec-sub">Tap any <b>day</b> to see exactly which chalets are free & their price. Filter by chalet below; ⭐ = every shown chalet open.</p>
+    <div class="chalet-filter" id="calFilter"></div>
+    <div class="legend" id="calLegend"></div>
+    <div class="calpanel">
+      <div class="calhead"><i data-lucide="sun"></i> August 2026</div>
+      <div class="dow"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+      <div class="cal" id="calGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="view hide" id="view-compare">
+    <h2 class="sec-title">⚖️ Compare them side by side</h2>
+    <p class="sec-sub">Compare within one provider at a time (they differ in area & terms). Swipe sideways on mobile; weekends = Fri–Sun.</p>
+    <div class="provsw" id="cmpProv"></div>
+    <div class="tablewrap"><table id="cmpTable"></table></div>
+  </section>
+</main>
+
+<footer>
+  <div>Made with <span class="heart">♥</span> for cozy escapes · tap any chalet to open its listing 🤍🏡</div>
+</footer>
+
+<div class="sheet" id="daySheet" aria-hidden="true">
+  <div class="sheet-card">
+    <div class="sheet-handle"></div>
+    <div class="sheet-head"><span id="dayTitle"></span><button class="sheet-close" id="dayClose" data-tip="Close"><i data-lucide="x"></i></button></div>
+    <div class="sheet-body" id="dayBody"></div>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lb-close" id="lbClose" data-tip="Close"><i data-lucide="x"></i></button>
+  <button class="lb-nav prev" id="lbPrev" data-tip="Previous"><i data-lucide="chevron-left"></i></button>
+  <img class="lb-img" id="lbImg" alt="" />
+  <button class="lb-nav next" id="lbNext" data-tip="Next"><i data-lucide="chevron-right"></i></button>
+  <div class="lb-meta"><span id="lbTitle"></span><span id="lbCount"></span></div>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const YEAR=2026, MONTH=7; // August (0-indexed)
+const ALL_AUG=Array.from({length:new Date(YEAR,MONTH+1,0).getDate()},(_,i)=>i+1);
+const PROVIDERS={
+  thehome:{name:'The Home', tag:'Bqaatouta', color:'#ff5d8f', link:'https://www.instagram.com/thehome.lb', linkLabel:'@thehome.lb', linkIcon:'instagram'},
+  other:{name:'Lebanon Rental', tag:'Batroun', color:'#6366f1', link:'https://lebanon-rental.com', linkLabel:'lebanon-rental.com', linkIcon:'external-link'},
+  yolla:{name:'Yolla Chalets', tag:'Bazouriyeh', color:'#0891b2', link:'https://www.instagram.com/yollachalets', linkLabel:'@yollachalets', linkIcon:'instagram'},
+  chaletcheck:{name:'Chalet Check', tag:'Chalet Check', color:'#16a34a', link:'https://www.instagram.com/', linkLabel:'Chalet Check', linkIcon:'instagram'},
+  waypoint:{name:'Waypoint Chalet', tag:'Waypoint', color:'#0284c7', link:'https://www.instagram.com/reel/DZZthlWoTcx/', linkLabel:'Waypoint', linkIcon:'instagram'},
+};
+/* Local photos: Chalet_Photos 2/<Dir>/{Outdoor,Indoor}/<Prefix>_<Cat>_NN.jpg (outdoor first = nicer hero) */
+const PHOTO_BASE='Chalet_Photos';
+function pics(dir,prefix,inN,outN){
+  const p=(cat,n)=>`${encodeURIComponent(PHOTO_BASE)}/${dir}/${cat}/${prefix}_${cat}_${String(n).padStart(2,'0')}.jpg`;
+  const out=[];
+  for(let i=1;i<=outN;i++)out.push(p('Outdoor',i));
+  for(let i=1;i<=inN;i++)out.push(p('Indoor',i));
+  return out;
+}
+const CHALETS=[
+  {id:'little-one',name:'The Little One',emoji:'🌼',color:'#ff7a59',
+   tagline:'Cozy 1-bed rooftop for couples & small crews — pure private calm.',
+   provider:'thehome', location:'Bqaatouta', photos:pics('TheLittleOne','TheLittleOne',9,10),
+   beds:1, wc:1, capMin:2, capMax:4, extra:2, pool:'3×2 private pool',
+   weekday:90, weekend:120, checkin:'6:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'gamepad-2',t:'Babyfoot'},{i:'target',t:'Darts'},{i:'flame',t:'Fire pit'},{i:'utensils',t:'BBQ + dine-out'},{i:'mountain',t:'Panoramic valley lounge'}],
+   avail:[12,18,19,21,22,23,24,26,28,29]},
+  {id:'little-two',name:'The Little Two',emoji:'🌿',color:'#3ec98a',
+   tagline:'Two bedrooms of warm, private space for family & friends.',
+   provider:'thehome', location:'Bqaatouta', photos:pics('TheLittleTwo','TheLittleTwo',9,9),
+   beds:2, wc:1, capMin:5, capMax:6, extra:0, pool:'3×2 private pool',
+   weekday:120, weekend:150, checkin:'6:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'gamepad-2',t:'Babyfoot'},{i:'target',t:'Darts'},{i:'flame',t:'Fire pit'},{i:'utensils',t:'BBQ + dine-out'},{i:'mountain',t:'Valley-view front lounge'}],
+   avail:[18,19,20,21,23,24,25,26,27,28,30,31]},
+  {id:'eldest',name:'The Eldest',emoji:'🌄',color:'#8b5cf6',
+   tagline:'Spacious 3-bed retreat with a huge green terrace for big groups.',
+   provider:'thehome', location:'Bqaatouta', photos:pics('TheEldest','TheEldest',10,10),
+   beds:3, wc:3, capMin:10, capMax:12, extra:0, pool:'6×3 private pool',
+   weekday:240, weekend:270, checkin:'7:00 PM', checkout:'5:00 PM',
+   highlights:[{i:'circle-dot',t:'Ping pong'},{i:'zap',t:'Air hockey'},{i:'gamepad-2',t:'Babyfoot'},{i:'target',t:'Darts'},{i:'palmtree',t:'Hammock & sunbeds'},{i:'flame',t:'Fire pit + BBQ'},{i:'trees',t:'Huge green terrace'}],
+   avail:[24,25,26]},
+  {id:'son',name:'The Son',emoji:'💫',color:'#4fb0ff',
+   tagline:'Modern 3-bed apartment with a big pool, jacuzzi & billiard.',
+   provider:'thehome', location:'Bqaatouta', photos:pics('TheSon','TheSon',10,11),
+   beds:3, wc:3, capMin:10, capMax:12, extra:0, pool:'7×4 private pool',
+   weekday:270, weekend:300, checkin:'8:00 PM', checkout:'6:00 PM',
+   highlights:[{i:'droplets',t:'Jacuzzi 🫧'},{i:'circle-dot',t:'Indoor billiard 🎱'},{i:'gamepad-2',t:'Ping pong + babyfoot'},{i:'target',t:'Darts'},{i:'flame',t:'Bonfire setup'},{i:'trees',t:'Spacious terrace'}],
+   avail:[31]},
+
+  /* ---- Provider: Lebanon Rental (Batroun). Prices pulled from listings; availability on request. ---- */
+  {id:'villa-cabos',name:'Villa Cabos',emoji:'🏝️',color:'#0ea5a4',
+   tagline:'3-bedroom villa in Chabtine with a private pool & garden — high demand.',
+   provider:'other', location:'Chabtine, Batroun',
+   url:'https://lebanon-rental.com/property/3-bedrooms-villa-cabos-chabtine/',
+   photos:['https://lebanon-rental.com/wp-content/uploads/2025/06/WhatsApp-Image-2025-06-11-at-12.26.53-PM-780x780.jpeg','https://lebanon-rental.com/wp-content/uploads/2025/06/WhatsApp-Image-2025-06-11-at-1.46.49-PM.webp'],
+   beds:3, wc:3, capMin:6, capMax:8, extra:0, pool:'Private pool',
+   weekday:300, weekend:350, checkin:'2:00 PM', checkout:'11:00 AM',
+   highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ grill'},{i:'trees',t:'Private garden'},{i:'snowflake',t:'AC / heating'}],
+   avail:[3,4,5,6,10,16,17,18,23,24,25,26,27,28,30,31]},
+  {id:'bejdarfel',name:'Bejdarfel Chalet',emoji:'🌅',color:'#f59e0b',
+   tagline:'Snug 1-bedroom chalet with pool & terrace in Bejdarfel.',
+   provider:'other', location:'Bejdarfel, Batroun',
+   url:'https://lebanon-rental.com/property/%f0%9f%8f%a1-bejdarfel-chalet-1-bedroom-stay-with-pool-terrace/',
+   photos:['https://lebanon-rental.com/wp-content/uploads/2026/06/ChatGPT-Image-Jun-8-2026-09_54_46-AM-3-780x780.png'],
+   beds:1, wc:1, capMin:2, capMax:4, extra:0, pool:'Private pool',
+   weekday:170, weekend:230, checkin:'2:00 PM', checkout:'12:00 PM',
+   highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ area'},{i:'trees',t:'Garden & terrace'},{i:'car',t:'Parking'},{i:'tv',t:'TV'}],
+   avail:ALL_AUG},
+  {id:'chabtine-gh',name:'Chabtine Guesthouse',emoji:'🌸',color:'#f43f5e',
+   tagline:'1-bedroom guesthouse with private pool — cozy for up to 5.',
+   provider:'other', location:'Chabtine, Batroun', note:'Rate is for 5 guests; +$15/night per extra guest.',
+   url:'https://lebanon-rental.com/property/chabtine-1-bedroom-guesthouse-with-private-pool/',
+   photos:['https://lebanon-rental.com/wp-content/uploads/2025/10/WhatsApp-Image-2025-05-05-at-6.16.05-PM-1-1.webp','https://lebanon-rental.com/wp-content/uploads/2025/10/ChatGPT-Image-May-22-2026-12_16_31-PM.png'],
+   beds:1, wc:1, capMin:4, capMax:5, extra:3, extraFee:15, pool:'Private pool',
+   weekday:150, weekend:200, checkin:'6:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ area'},{i:'trees',t:'Garden & patio'},{i:'car',t:'Parking'},{i:'tv',t:'TV'}],
+   avail:[19]},
+  {id:'luxury-batroun',name:'Luxury Villa',emoji:'💎',color:'#6366f1',
+   tagline:'Upscale 3-bed villa with indoor jacuzzi & 7×3 pool near Batroun souks.',
+   provider:'other', location:'Chabtine, Batroun', onRequest:true, note:'Aug rate; drops to $350/$400 in September.',
+   url:'https://lebanon-rental.com/property/luxury-villas-in-batroun/',
+   photos:['https://lebanon-rental.com/wp-content/uploads/2025/05/ChatGPT-Image-May-25-2026-01_31_11-PM-7-780x780.png'],
+   beds:3, wc:3, capMin:6, capMax:8, extra:0, pool:'7×3 private pool',
+   weekday:400, weekend:450, checkin:'3:00 PM', checkout:'12:00 PM',
+   highlights:[{i:'droplets',t:'Indoor jacuzzi 🫧'},{i:'waves',t:'7×3 pool'},{i:'flame',t:'BBQ area'},{i:'trees',t:'Garden'},{i:'car',t:'Parking'}],
+   avail:ALL_AUG},
+  {id:'villa-zan',name:'Villa Zan',emoji:'🏖️',color:'#e0a400',featured:true,
+   tagline:'Bright 3-bed villa in Zan with a big 4×8 pool — sleeps up to 13.',
+   provider:'other', location:'Zan, Batroun',
+   note:'Only Sun Aug 2 → Mon Aug 3 (check-out 4 PM). Living-room sofas sleep up to 13, +$15/guest over 8.',
+   url:'https://lebanon-rental.com/property/3-bedrooms-villa-zan-batroun/',
+   photos:['https://lebanon-rental.com/wp-content/uploads/2025/06/ChatGPT-Image-May-28-2026-01_13_14-PM-1-780x780.png'],
+   beds:3, wc:3, capMin:6, capMax:8, extra:5, extraFee:15, pool:'4×8 pool · 1.5m deep',
+   weekday:350, weekend:400, checkin:'7:00 PM', checkout:'4:00 PM',
+   highlights:[{i:'waves',t:'4×8 pool (1.5m deep)'},{i:'flame',t:'BBQ area'},{i:'utensils',t:'Equipped kitchen'},{i:'trees',t:'Garden'},{i:'snowflake',t:'AC / heating'}],
+   avail:[2]},
+
+  /* ---- Provider: Yolla Chalets (Bazouriyeh, South Lebanon). Available Aug 13 onwards. ---- */
+  {id:'yolla',name:'Yolla Chalets',emoji:'🌊',color:'#0891b2',
+   tagline:'Breezy South-Lebanon getaway with a private pool, BBQ & equipped kitchen.',
+   provider:'yolla', location:'Bazouriyeh, South Lebanon', phone:'76 64 65 67',
+   url:'https://www.instagram.com/yollachalets',
+   beds:null, wc:null, capMin:6, capMax:8, extra:0, pool:'6×3 pool · 1.5m deep',
+   weekday:150, weekend:200, checkin:null, checkout:null,
+   highlights:[{i:'waves',t:'6×3 pool (1.5m deep)'},{i:'flame',t:'BBQ area'},{i:'utensils',t:'Equipped kitchen'}],
+   avail:Array.from({length:19},(_,i)=>i+13)}, // Aug 13–31
+
+  /* ---- Provider: Chalet Check. Overnight (maneme) + day-use + sahra. Availability = check-in day of each night pair. ---- */
+  {id:'cc1',name:'Chalet Check · 1',emoji:'🌙',color:'#059669',
+   tagline:'Overnight chalet — sleeps up to 6 (8 for +$15/extra guest).',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/DbYaFwPth5H/',
+   photos:['provider_photos/cc1.jpg'],
+   beds:null, wc:null, capMin:2, capMax:6, extra:2, extraFee:15, pool:null,
+   weekday:180, weekend:230, checkin:null, checkout:null, highlights:[],
+   avail:[9,12,15,16,17,21,22,23,24,26,27,28,30]},
+  {id:'cc2',name:'Chalet Check · 2',emoji:'🌙',color:'#0d9488',
+   tagline:'Overnight or day-use chalet from Chalet Check.',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/Da-BwrBtbO8/',
+   photos:['provider_photos/cc2.jpg'],
+   beds:null, wc:null, capMin:2, capMax:8, extra:0, pool:null,
+   weekday:150, weekend:180, checkin:null, checkout:null, highlights:[],
+   dayuse:{wd:120,we:150},
+   avail:[12,16,17,18,19,23,24,27,30]},
+  {id:'cc3',name:'Chalet Check · 3',emoji:'🌙',color:'#65a30d',
+   tagline:'Flexible chalet — overnight, day-use or evening sahra.',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/DbQFeIsuq0y/',
+   photos:['provider_photos/cc3.jpg'],
+   note:'Listed dates plus all other August days.',
+   beds:null, wc:null, capMin:2, capMax:8, extra:0, pool:null,
+   weekday:150, weekend:180, checkin:null, checkout:null, highlights:[],
+   dayuse:{wd:120,we:150}, sahra:{price:100,time:'7 PM – 3 AM'},
+   avail:ALL_AUG},
+  {id:'cc6',name:'Chalet Check · 6',emoji:'🌙',color:'#ca8a04',
+   tagline:'Sleeps 8 overnight, up to 10 for day use.',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/DbGPX2TOb24/',
+   photos:['provider_photos/cc6.jpg'],
+   beds:null, wc:null, capMin:6, capMax:8, extra:0, pool:null,
+   weekday:140, weekend:170, checkin:null, checkout:null, highlights:[],
+   dayuse:{wd:120,we:140,cap:10},
+   avail:[16,17,19,21,23,24,25,26,28,29]},
+  {id:'cc7',name:'Chalet Check · 7',emoji:'🌙',color:'#d97706',
+   tagline:'Overnight, day-use or an evening sahra.',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/DbIjUpqu3ra/',
+   photos:['provider_photos/cc7.jpg'],
+   beds:null, wc:null, capMin:2, capMax:8, extra:0, pool:null,
+   weekday:150, weekend:180, checkin:null, checkout:null, highlights:[],
+   dayuse:{flat:120}, sahra:{price:80,time:'6 PM – 12 AM'},
+   avail:[21,23,26,27,29,30]},
+  {id:'cc9',name:'Chalet Check · 9',emoji:'🌙',color:'#7c3aed',
+   tagline:'Sleeps 8 — day use costs the same as overnight.',
+   provider:'chaletcheck', url:'https://www.instagram.com/reel/DbVtt3AtLSH/',
+   photos:['provider_photos/cc9.jpg'],
+   note:'Day use same price as overnight.',
+   beds:null, wc:null, capMin:6, capMax:8, extra:0, pool:null,
+   weekday:150, weekend:200, checkin:null, checkout:null, highlights:[],
+   dayuse:{wd:150,we:200},
+   avail:[14,17,18,23,24,26,27,30]},
+
+  /* ---- Provider: Waypoint Chalet ---- */
+  {id:'waypoint',name:'Waypoint Chalet',emoji:'⚓',color:'#0284c7',
+   tagline:'2-bedroom chalet with private pool & valley views — sleeps up to 8.',
+   provider:'waypoint', url:'https://www.instagram.com/reel/DZZthlWoTcx/',
+   photos:['provider_photos/waypoint.jpg'],
+   note:'Base rate up to 4 guests · +$25/extra sleeping guest (8 max) · +$15/non-sleeping · breakfast on request.',
+   beds:2, wc:null, capMin:2, capMax:10, extra:0, pool:'Private pool',
+   weekday:200, weekend:250, checkin:'6:00 PM', checkout:'3:00 PM',
+   highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ area'},{i:'tv',t:'Smart TV'},{i:'wifi',t:'WiFi'},{i:'snowflake',t:'AC'},{i:'utensils',t:'Equipped kitchen'}],
+   avail:[12,18,20,23,26,27,30,31]},
+];
+const EXTRA_GUEST_FEE=10;
+const byId=id=>CHALETS.find(c=>c.id===id);
+const countBy=pid=>CHALETS.filter(c=>c.provider===pid).length;
+let cardsProvider='all';
+let cmpProvider='thehome';
+/* generic provider switch renderer */
+function renderProvSwitch(mountId,current,includeAll,onPick){
+  const m=document.getElementById(mountId);m.innerHTML='';
+  const opts=includeAll?[['all',{name:'All chalets',color:'var(--grape)',linkIcon:'layout-grid'}]]:[];
+  Object.entries(PROVIDERS).forEach(e=>opts.push(e));
+  opts.forEach(([id,p])=>{
+    const on=id===current;
+    const cnt=id==='all'?CHALETS.length:countBy(id);
+    const b=el('button',on?'on':'',`<i data-lucide="${p.linkIcon}"></i>${p.name}${p.tag&&id!=='all'?` · ${p.tag}`:''}<span class="cnt">${cnt}</span>`);
+    if(on)b.style.cssText=`background:${p.color}`;
+    b.onclick=()=>onPick(id);
+    m.appendChild(b);
+  });
+  icons();
+}
+
+/* weekend = Fri(5) Sat(6) Sun(0) */
+const isWeekend=day=>{const d=new Date(YEAR,MONTH,day).getDay();return d===5||d===6||d===0;};
+const rateFor=(c,day)=>isWeekend(day)?c.weekend:c.weekday;
+const fmtDay=day=>new Date(YEAR,MONTH,day).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+
+/* ---------- HELPERS ---------- */
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;};
+const icons=()=>window.lucide&&lucide.createIcons();
+
+/* ---------- HERO (dynamic counts) ---------- */
+function renderHero(){
+  const nCh=CHALETS.length, nProv=Object.keys(PROVIDERS).length;
+  const gMin=Math.min(...CHALETS.map(c=>c.capMin)), gMax=Math.max(...CHALETS.map(c=>c.capMax));
+  const monthName=new Date(YEAR,MONTH,1).toLocaleDateString('en-US',{month:'long',year:'numeric'});
+  document.getElementById('heroStats').innerHTML=[
+    ['home',`${nCh} chalets`],
+    ['layout-grid',`${nProv} providers`],
+    ['users',`${gMin}–${gMax} guests`],
+    ['calendar-heart',monthName],
+  ].map(([i,t])=>`<span class="pill"><i data-lucide="${i}"></i> ${t}</span>`).join('');
+  document.getElementById('heroSub').innerHTML=`Compare availability &amp; prices across <b>${nCh} chalets</b> from <b>${nProv} providers</b> — then grab the perfect free date. 🌿`;
+  icons();
+}
+
+/* ---------- CHALET CARDS ---------- */
+function renderCards(){
+  renderProvSwitch('cardsProv',cardsProvider,true,id=>{cardsProvider=id;renderCards();});
+  const wrap=document.getElementById('cards');
+  wrap.innerHTML='';
+  const filtered=(cardsProvider==='all'?CHALETS:CHALETS.filter(c=>c.provider===cardsProvider))
+    .slice().sort((a,b)=>(b.featured?1:0)-(a.featured?1:0)); // favorites pinned to top
+  filtered.forEach(c=>{
+    const grad=`linear-gradient(135deg,${c.color},${shade(c.color,-18)})`;
+    const openCount=c.avail.length;
+    const p=PROVIDERS[c.provider];
+    const hasPhoto=c.photos&&c.photos.length;
+    const availBadge=c.onRequest
+      ? `<span class="avail-badge" style="background:#f59e0b"><i data-lucide="calendar-clock"></i>On request</span>`
+      : `<span class="avail-badge" style="background:${openCount>0?'var(--leaf)':'#b9b2c9'}"><i data-lucide="calendar-check"></i>${openCount} free day${openCount!==1?'s':''}</span>`;
+    // null-safe spec chips
+    const specs=[
+      `<span class="chip"><i data-lucide="users"></i>${c.capMin}–${c.capMax} guests${c.extra?` (+${c.extra})`:''}</span>`,
+      c.beds?`<span class="chip"><i data-lucide="bed-double"></i>${c.beds} bed${c.beds>1?'s':''}</span>`:'',
+      c.pool?`<span class="chip"><i data-lucide="waves"></i>${c.pool}</span>`:'',
+      c.wc?`<span class="chip"><i data-lucide="bath"></i>${c.wc} WC</span>`:'',
+    ].join('');
+    const times=(c.checkin||c.checkout)?`<div class="specs">
+          ${c.checkin?`<span class="chip"><i data-lucide="log-in"></i>In ${c.checkin}</span>`:''}
+          ${c.checkout?`<span class="chip"><i data-lucide="log-out"></i>Out ${c.checkout}</span>`:''}
+        </div>`:'';
+    const features=(c.highlights&&c.highlights.length)?`<div class="features">
+          <div class="flabel"><i data-lucide="sparkles"></i>Play & features</div>
+          <div class="fchips">${c.highlights.map(h=>`<span class="fchip"><i data-lucide="${h.i}"></i>${h.t}</span>`).join('')}</div>
+        </div>`:'';
+    const duStr=c.dayuse?(c.dayuse.flat?`$${c.dayuse.flat}`:`$${c.dayuse.wd}–$${c.dayuse.we}`):null;
+    const extraRates=(c.dayuse||c.sahra)?`<div class="extra-rates">
+          ${c.dayuse?`<span class="er"><i data-lucide="sun"></i>Day use ${duStr}${c.dayuse.cap?` · up to ${c.dayuse.cap}`:''}</span>`:''}
+          ${c.sahra?`<span class="er"><i data-lucide="moon"></i>Sahra $${c.sahra.price} · ${c.sahra.time}</span>`:''}
+        </div>`:'';
+    const cta=c.url?`<a href="${c.url}" target="_blank" rel="noopener" class="sitebtn"><i data-lucide="${p.linkIcon}"></i> ${c.onRequest?'Check dates & photos on site':'View on '+p.name}</a>`:'';
+    const phone=c.phone?`<a href="tel:${c.phone.replace(/\s/g,'')}" class="sitebtn" style="background:#e6fbf4;border-color:#c5f2e2;color:#0d9b6c"><i data-lucide="phone"></i> ${c.phone}</a>`:'';
+    const card=el('div','card'+(c.featured?' featured':''));
+    card.innerHTML=`
+      ${c.featured?'<div class="fav-ribbon"><i data-lucide="star"></i> Our favorite</div>':''}
+      <div class="thumb${hasPhoto?' photo':''}" ${hasPhoto?`data-gallery="${c.id}"`:''} style="${hasPhoto?`background-image:url('${c.photos[0]}')`:`background:${grad}`}">
+        <span class="prov-badge"><i data-lucide="${p.linkIcon}"></i>${p.name}</span>
+        ${availBadge}
+        <span class="emoji">${c.emoji}</span>
+        ${hasPhoto?`<span class="photo-count"><i data-lucide="images"></i>${c.photos.length}</span>`:''}
+      </div>
+      <div class="cbody">
+        <h3>${c.name}</h3>
+        ${c.location?`<div class="loc-chip"><i data-lucide="map-pin"></i>${c.location}</div>`:''}
+        <p class="tagline">${c.tagline}</p>
+        <div class="specs">${specs}</div>
+        <div class="price-row">
+          <div class="price"><div class="k"><i data-lucide="sun"></i>Weekday</div><div class="v">$${c.weekday}<small>/night</small></div></div>
+          <div class="price"><div class="k"><i data-lucide="party-popper"></i>Weekend</div><div class="v">$${c.weekend}<small>/night</small></div></div>
+        </div>
+        ${extraRates}
+        ${features}
+        ${times}
+        ${c.onRequest?`<div class="reqnote"><i data-lucide="info"></i>Availability on request — no public calendar${c.note?`. ${c.note}`:''}</div>`:`
+        <div class="miniaug">
+          <div class="label"><i data-lucide="calendar-heart"></i>Free in August</div>
+          ${openCount?c.avail.map(d=>`<div class="d">${d}</div>`).join(''):'<span style="font-weight:700;color:var(--ink-soft);font-size:12.5px">Fully booked this month 💛</span>'}
+        </div>`}
+        ${c.note&&!c.onRequest?`<div class="reqnote" style="margin-top:11px"><i data-lucide="info"></i>${c.note}</div>`:''}
+        ${cta}${phone}
+      </div>`;
+    if(hasPhoto)card.querySelector('.thumb').addEventListener('click',()=>openGallery(c.id));
+    wrap.appendChild(card);
+  });
+  icons();
+}
+/* darken hex */
+function shade(hex,pct){
+  const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;
+  r=Math.max(0,Math.min(255,r+r*pct/100));g=Math.max(0,Math.min(255,g+g*pct/100));b=Math.max(0,Math.min(255,b+b*pct/100));
+  return`#${((1<<24)+(Math.round(r)<<16)+(Math.round(g)<<8)+Math.round(b)).toString(16).slice(1)}`;
+}
+
+/* ---------- PHOTO GALLERY / LIGHTBOX ---------- */
+let lbPhotos=[], lbIdx=0, lbTitle='';
+function openGallery(id){
+  const c=byId(id); if(!c||!c.photos||!c.photos.length)return;
+  lbPhotos=c.photos; lbIdx=0; lbTitle=c.name;
+  showLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.getElementById('lightbox').setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+function showLb(){
+  const img=document.getElementById('lbImg');
+  img.src=lbPhotos[lbIdx];
+  document.getElementById('lbTitle').textContent=lbTitle;
+  document.getElementById('lbCount').textContent=`${lbIdx+1} / ${lbPhotos.length}`;
+}
+function lbStep(n){lbIdx=(lbIdx+n+lbPhotos.length)%lbPhotos.length;showLb();}
+function closeLb(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox').setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+function initLightbox(){
+  document.getElementById('lbClose').onclick=closeLb;
+  document.getElementById('lbPrev').onclick=e=>{e.stopPropagation();lbStep(-1);};
+  document.getElementById('lbNext').onclick=e=>{e.stopPropagation();lbStep(1);};
+  document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLb();});
+  document.addEventListener('keydown',e=>{
+    if(!document.getElementById('lightbox').classList.contains('open'))return;
+    if(e.key==='Escape')closeLb();else if(e.key==='ArrowLeft')lbStep(-1);else if(e.key==='ArrowRight')lbStep(1);
+  });
+  // swipe on the image
+  let x0=null;const img=document.getElementById('lbImg');
+  img.addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+  img.addEventListener('touchend',e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)lbStep(dx<0?1:-1);x0=null;},{passive:true});
+}
+
+/* ---------- FINDER (guests-first → list of free dates) ---------- */
+let fGuests=2;
+const canFit=(c,g)=>g<=(c.capMax+c.extra);
+function renderFinderControls(){
+  const seg=document.getElementById('guestSeg');
+  seg.innerHTML='';
+  [2,4,6,8,10,12].forEach(g=>{
+    const b=el('button',g===fGuests?'on':'',`${g}${g===12?'+':''} <span style="opacity:.75;font-weight:700">guest${g>1?'s':''}</span>`);
+    b.onclick=()=>{fGuests=g;renderFinderControls();runFinder();};
+    seg.appendChild(b);
+  });
+}
+function costFor(c,day){
+  let cost=rateFor(c,day),extra='';
+  const fee=c.extraFee||EXTRA_GUEST_FEE;
+  if(fGuests>c.capMax){const over=fGuests-c.capMax;cost+=over*fee;extra=` · +${over}×$${fee} extra`;}
+  return {cost,extra};
+}
+function runFinder(){
+  const box=document.getElementById('finderResult');box.innerHTML='';
+  const days=new Date(YEAR,MONTH+1,0).getDate();
+  // confirmed-calendar chalets (fixed availability, e.g. The Home)
+  const dates=[];
+  for(let d=1;d<=days;d++){
+    const free=CHALETS.filter(c=>!c.onRequest&&c.avail.includes(d)&&canFit(c,fGuests));
+    if(free.length)dates.push({d,free,we:isWeekend(d)});
+  }
+  // on-request chalets (no public calendar — confirm on site)
+  const onReq=CHALETS.filter(c=>c.onRequest&&canFit(c,fGuests));
+
+  if(!dates.length&&!onReq.length){
+    box.innerHTML=`<div class="empty"><div class="big">🙈</div>No chalet fits <b>${fGuests} guests</b> in August.<br>Try a smaller crew — or DM us for a custom setup!</div>`;
+    icons();return;
+  }
+
+  if(dates.length){
+    const slots=dates.reduce((s,x)=>s+x.free.length,0);
+    box.appendChild(el('p','sec-sub','<span style="margin-bottom:0">🎉 <b>'+dates.length+'</b> confirmed free date'+(dates.length>1?'s':'')+' for <b>'+fGuests+' guest'+(fGuests>1?'s':'')+'</b> — '+slots+' opening'+(slots>1?'s':'')+'.</span>'));
+    dates.forEach(({d,free,we})=>{
+      const card=el('div','datecard');
+      const rows=free.map(c=>{
+        const {cost,extra}=costFor(c,d);
+        return `<div class="crow">
+          <div class="cem" style="background:${c.color}22">${c.emoji}</div>
+          <div class="cn">${c.name}<small>${c.capMin}–${c.capMax} guests${c.pool?' · '+c.pool:''}${extra}</small></div>
+          <div class="cp" style="color:${c.color}">$${cost}</div>
+        </div>`;
+      }).join('');
+      card.innerHTML=`<div class="dhead">
+          <span class="dt"><span class="dnum">${d}</span>${fmtDay(d)}</span>
+          <span class="wetag" style="${we?'background:#fff0e6;color:#d9600f':'background:#eaf6ff;color:#1d76c4'}">${we?'🎉 Weekend':'☀️ Weekday'}</span>
+        </div>${rows}`;
+      box.appendChild(card);
+    });
+  }
+
+  if(onReq.length){
+    box.appendChild(el('p','sec-sub','<span style="margin:14px 0 8px;display:block">🔎 <b>'+onReq.length+'</b> Batroun chalet'+(onReq.length>1?'s':'')+' that fit — <b>availability on request</b> (no public calendar, confirm on site):</span>'));
+    onReq.forEach(c=>{
+      const r=el('div','datecard');
+      r.innerHTML=`<div class="crow" style="border-top:none;padding-top:2px">
+          <div class="cem" style="background:${c.color}22">${c.emoji}</div>
+          <div class="cn">${c.name}<small>${c.location} · ${c.capMin}–${c.capMax} guests${c.pool?' · '+c.pool:''}</small></div>
+          <div class="cp" style="color:${c.color}">$${c.weekday}<small style="display:block;font-size:10px;color:var(--ink-soft);font-weight:700">wk · $${c.weekend} wknd</small></div>
+        </div>
+        <a href="${c.url}" target="_blank" rel="noopener" class="sitebtn"><i data-lucide="external-link"></i> Check dates & photos on site</a>`;
+      box.appendChild(r);
+    });
+  }
+  icons();
+}
+
+/* ---------- CALENDAR ---------- */
+let calActive=new Set(CHALETS.map(c=>c.id));
+function renderCalFilter(){
+  const f=document.getElementById('calFilter');
+  f.innerHTML='';
+  const all=el('div','cf'+(calActive.size===CHALETS.length?' on':''),`<i data-lucide="sparkles" style="width:13px;height:13px"></i> All`);
+  if(calActive.size===CHALETS.length)all.style.cssText='background:linear-gradient(135deg,var(--sun),var(--berry));color:#fff';
+  all.onclick=()=>{calActive=new Set(CHALETS.map(c=>c.id));renderCalFilter();renderCalGrid();};
+  f.appendChild(all);
+  CHALETS.forEach(c=>{
+    const on=calActive.has(c.id);
+    const b=el('div','cf'+(on?' on':''),`<span class="dot" style="background:${c.color}"></span>${c.name.replace('The ','')}`);
+    if(on)b.style.cssText=`background:${c.color};color:#fff`;
+    b.onclick=()=>{
+      if(calActive.has(c.id))calActive.delete(c.id);else calActive.add(c.id);
+      if(calActive.size===0)calActive=new Set(CHALETS.map(x=>x.id));
+      renderCalFilter();renderCalGrid();
+    };
+    f.appendChild(b);
+  });
+  // legend
+  const lg=document.getElementById('calLegend');
+  lg.innerHTML=CHALETS.map(c=>`<span><i class="${c.onRequest?'req':''}" style="${c.onRequest?`border:2px solid ${c.color};background:transparent`:`background:${c.color}`}"></i>${c.name.replace('The ','')}</span>`).join('')
+    +`<span><i class="req" style="border:2px solid var(--ink-soft);background:transparent"></i>hollow = on request</span>`
+    +`<span>⭐ every shown chalet free</span>`;
+  icons();
+}
+function renderCalGrid(){
+  const g=document.getElementById('calGrid');
+  g.innerHTML='';
+  const first=new Date(YEAR,MONTH,1).getDay();
+  const days=new Date(YEAR,MONTH+1,0).getDate();
+  const active=CHALETS.filter(c=>calActive.has(c.id));
+  for(let i=0;i<first;i++)g.appendChild(el('div','cell empty-cell'));
+  for(let d=1;d<=days;d++){
+    const free=active.filter(c=>c.avail.includes(d));
+    const allFree=active.length>1&&free.length===active.length;
+    const cell=el('div','cell'+(isWeekend(d)?' weekend':'')+(free.length?'':' none')+(allFree?' hot':''));
+    cell.innerHTML=`<div class="num">${d}${isWeekend(d)?' <span class="we-dot">•</span>':''}</div>
+      ${allFree?'<span class="star" data-tip="Every shown chalet free!">⭐</span>':''}
+      <div class="dots">${free.map(c=>`<span class="dd${c.onRequest?' req':''}" style="${c.onRequest?`border-color:${c.color}`:`background:${c.color}`}" data-tip="${c.name}${c.onRequest?' — on request':' free'}"></span>`).join('')}</div>
+      ${free.length?`<span class="cnt">${free.length}</span>`:''}`;
+    if(free.length){cell.style.cursor='pointer';cell.addEventListener('click',()=>openDay(d));}
+    g.appendChild(cell);
+  }
+}
+
+/* ---------- CALENDAR DAY DRILL-DOWN ---------- */
+function openDay(d){
+  const active=CHALETS.filter(c=>calActive.has(c.id));
+  const free=active.filter(c=>c.avail.includes(d));
+  const we=isWeekend(d);
+  document.getElementById('dayTitle').textContent=fmtDay(d)+(we?' · 🎉 weekend':' · ☀️ weekday');
+  const body=document.getElementById('dayBody');
+  const nConfirmed=free.filter(c=>!c.onRequest).length;
+  body.innerHTML=`<p class="daysum">✨ ${free.length} chalet${free.length!==1?'s':''} available${nConfirmed<free.length?` (${free.length-nConfirmed} on request)`:''} — tap a card to open its listing.</p>`+
+    free.map(c=>{
+      const p=PROVIDERS[c.provider];
+      const price=c.onRequest?`<small>from</small>$${c.weekday}`:`$${rateFor(c,d)}`;
+      const extras=[c.pool,c.dayuse?'day use':null,c.sahra?'sahra':null].filter(Boolean).join(' · ');
+      return `<a class="drow" href="${c.url||p.link}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <div class="dem" style="background:${c.color}22">${c.emoji}</div>
+        <div class="din">
+          <b>${c.name}</b>
+          <span class="pv" style="background:${p.color}"><i data-lucide="${p.linkIcon}" style="width:11px;height:11px"></i>${p.name}</span>
+          <small>${c.capMin}–${c.capMax} guests${extras?' · '+extras:''}${c.onRequest?' · on request':''}</small>
+        </div>
+        <div class="dpr">${price}<small>${c.onRequest?'per night':we?'weekend':'weekday'}</small></div>
+      </a>`;
+    }).join('');
+  const s=document.getElementById('daySheet');
+  s.classList.add('open');s.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  icons();
+}
+function closeDay(){
+  const s=document.getElementById('daySheet');
+  s.classList.remove('open');s.setAttribute('aria-hidden','true');document.body.style.overflow='';
+}
+function initDaySheet(){
+  document.getElementById('dayClose').onclick=closeDay;
+  document.getElementById('daySheet').addEventListener('click',e=>{if(e.target.id==='daySheet')closeDay();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('daySheet').classList.contains('open'))closeDay();});
+}
+
+/* ---------- COMPARE (by provider) ---------- */
+function renderCompare(){
+  renderProvSwitch('cmpProv',cmpProvider,false,id=>{cmpProvider=id;renderCompare();});
+  const t=document.getElementById('cmpTable');
+  const list=CHALETS.filter(c=>c.provider===cmpProvider);
+  const head=`<thead><tr><th></th>${list.map(c=>`<th class="ch"><span class="em">${c.emoji}</span>${c.name}</th>`).join('')}</tr></thead>`;
+  const rows=[
+    ['map-pin','Location',c=>c.location||'—'],
+    ['bed-double','Bedrooms',c=>c.beds?`<b>${c.beds}</b>`:'—'],
+    ['bath','Bathrooms',c=>c.wc?`${c.wc} WC`:'—'],
+    ['users','Capacity',c=>`${c.capMin}–${c.capMax}${c.extra?` (+${c.extra})`:''}`],
+    ['waves','Pool',c=>c.pool||'—'],
+    ['sun','Weekday',c=>`<b>$${c.weekday}</b>`],
+    ['party-popper','Weekend',c=>`<b>$${c.weekend}</b>`],
+    ['sun','Day use',c=>c.dayuse?(c.dayuse.flat?`$${c.dayuse.flat}`:`$${c.dayuse.wd}/$${c.dayuse.we}`):'—'],
+    ['moon','Sahra',c=>c.sahra?`$${c.sahra.price}<br><small>${c.sahra.time}</small>`:'—'],
+    ['log-in','Check-in',c=>c.checkin||'—'],
+    ['log-out','Check-out',c=>c.checkout||'—'],
+    ['sparkles','Play & features',c=>(c.highlights&&c.highlights.length)?c.highlights.map(h=>`• ${h.t}`).join('<br>'):'—'],
+    ['calendar-check','Availability (Aug)',c=>{
+      if(c.onRequest)return `<span class="count-badge" style="background:#fff2e0;color:#c26a12">On request</span>`;
+      const n=c.avail.length;
+      const col=n>=8?'var(--ok-soft);color:#16855a':n>=3?'#fff2e0;color:#c26a12':'#fde7ee;color:#c23a63';
+      return `<span class="count-badge" style="background:${col.split(';')[0]};${col.split(';')[1]}">${n} day${n!==1?'s':''}</span>`;
+    }],
+  ];
+  const isEmpty=v=>v==null||v==='—'||v==='';
+  const body='<tbody>'+rows.filter(([ic,label,fn])=>list.some(c=>!isEmpty(fn(c)))).map(([ic,label,fn])=>
+    `<tr><th><span class="ic"><i data-lucide="${ic}"></i></span>${label}</th>${list.map(c=>`<td>${fn(c)}</td>`).join('')}</tr>`
+  ).join('')+'</tbody>';
+  t.innerHTML=head+body;
+  icons();
+}
+
+/* ---------- TABS ---------- */
+function initTabs(){
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.onclick=()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelectorAll('.view').forEach(v=>v.classList.add('hide'));
+      document.getElementById('view-'+tab.dataset.view).classList.remove('hide');
+      window.scrollTo({top:0,behavior:'smooth'});
+    };
+  });
+}
+
+/* ---------- SKELETON + BOOT ---------- */
+function showSkeleton(){
+  document.getElementById('cards').innerHTML=Array(4).fill('<div class="sk sk-card"></div>').join('');
+}
+function boot(){
+  showSkeleton();
+  icons();
+  setTimeout(()=>{ // brief skeleton so first paint feels intentional, then hydrate
+    renderHero();
+    renderCards();
+    renderFinderControls();runFinder();
+    renderCalFilter();renderCalGrid();
+    renderCompare();
+    initTabs();
+    initLightbox();
+    initDaySheet();
+    icons();
+  },450);
+}
+boot();
+</script>
+</body>
+</html>

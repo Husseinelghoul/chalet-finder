@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+._*
+
+# Node / tooling
+node_modules/
+npm-debug.log*
+
+# Cloudflare / Wrangler
+.wrangler/
+.dev.vars
+dist/
+
+# Editor
+.vscode/
+.idea/
+
+# Local project notes (not needed for the site)
+info/
