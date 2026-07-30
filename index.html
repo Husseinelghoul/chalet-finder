@@ -503,7 +503,9 @@ const PROVIDERS={
   cykia:{name:'Cykia Pool', tag:'Pool day-use', color:'#7c3aed', link:'https://www.instagram.com/p/DK8O7HSiEDx/', linkLabel:'Cykia', linkIcon:'instagram'},
   leaves:{name:'Emdan', tag:'Ain Qana', color:'#0f766e', link:'https://www.instagram.com/leaveschalets.lb', linkLabel:'@leaveschalets.lb', linkIcon:'instagram'},
   lacasita:{name:'La Casita', tag:'Deir el-Zahrani', color:'#be185d', link:'https://www.instagram.com/lacasita.lebanon', linkLabel:'@lacasita.lebanon', linkIcon:'instagram'},
-  zaytouna:{name:'Zaytouna Chalet', tag:'Khirbet Selem', color:'#a16207', link:'https://www.instagram.com/', linkLabel:'Zaytouna Chalet', linkIcon:'instagram'},
+  zaytouna:{name:'Zaytouna · Khirbet Selem', tag:'Khirbet Selem', color:'#a16207', link:'https://www.instagram.com/', linkLabel:'Zaytouna Chalet', linkIcon:'instagram'},
+  zaytounaj:{name:'Zaytouna · Jouwaya', tag:'Jouwaya', color:'#557153', link:'https://www.instagram.com/zaytouna.chalet7', linkLabel:'@zaytouna.chalet7', linkIcon:'instagram'},
+  ciel:{name:'Ciel Chalet', tag:'', color:'#0ea5e9', link:'https://www.instagram.com/reel/DbIgQs6ojS4/', linkLabel:'Ciel Chalet', linkIcon:'instagram'},
 };
 /* Local photos: Chalet_Photos 2/<Dir>/{Outdoor,Indoor}/<Prefix>_<Cat>_NN.jpg (outdoor first = nicer hero) */
 const PHOTO_BASE='Chalet_Photos';
@@ -664,6 +666,17 @@ const CHALETS=[
    highlights:[{i:'waves',t:'Private pool'},{i:'flame',t:'BBQ area'},{i:'tv',t:'Smart TV'},{i:'wifi',t:'WiFi'},{i:'snowflake',t:'AC'},{i:'utensils',t:'Equipped kitchen'}],
    avail:[12,18,20,23,26,27,30,31]},
 
+  /* ---- Provider: Waypoint (@waypoint.lb) — second unit in Chabtine, Batroun. Base 6 guests · +$15/extra. ---- */
+  {id:'waypoint-chabtine',name:'Waypoint · Chabtine',emoji:'🧭',color:'#0e7490',
+   tagline:'Waypoint’s Chabtine chalet — sleeps 6, +$15 per extra guest.',
+   provider:'waypoint', location:'Chabtine, Batroun',
+   url:'https://www.instagram.com/waypoint.lb',
+   beds:null, wc:null, capMin:2, capMax:8, extra:0, extraFee:15, baseCap:6, pool:null,
+   weekday:250, weekend:300, checkin:null, checkout:null,
+   note:'Base rate for up to 6 guests · +$15 per extra guest.',
+   highlights:[],
+   avail:[4,5,9,10,11,12,13,16,17,19,20,22,23,24,25,30,31]},
+
   /* ---- Provider: Trio Chalet (@triochalet). Multiple units — only the available ones listed (Latifa & Souad fully booked). ---- */
   {id:'trio-ahlam',name:'Ahlam',emoji:'🏕️',color:'#e11d48',
    tagline:'Sunny chalet for up to 7 — plenty of open August dates.',
@@ -777,7 +790,7 @@ const CHALETS=[
    avail:[1,4,5,6,7,8,9]},
 
   /* ---- Provider: Zaytouna Chalet (Khirbet Selem, South, 22km from Tyre). Sleeps 6. Weekend = Fri/Sat. ---- */
-  {id:'zaytouna',name:'Zaytouna Chalet',emoji:'🌿',color:'#a16207',
+  {id:'zaytouna',name:'Zaytouna · Khirbet Selem',emoji:'🌿',color:'#a16207',
    tagline:'Sandyan chalet for 6 with an 8×4 pool & outdoor wood BBQ tent.',
    provider:'zaytouna', location:'Khirbet Selem, South Lebanon',
    url:'https://www.instagram.com/',
@@ -787,6 +800,27 @@ const CHALETS=[
    note:'Sun–Thu $200 · Fri/Sat & holidays $220. Day use $100 (9a–5p). +$10 per extra guest above 6. Available all August weekdays (no Sat/Sun).',
    highlights:[{i:'waves',t:'8×4 pool'},{i:'bed-double',t:'2 bedrooms'},{i:'tent',t:'Wood BBQ tent'},{i:'utensils',t:'Equipped kitchen'},{i:'salad',t:'Salon & dining'}],
    avail:[3,4,5,6,7,10,11,12,13,14,17,18,19,20,21,24,25,26,27,28,31]},
+
+  /* ---- Provider: Zaytouna · Jouwaya (@zaytouna.chalet7, South). Up to 8. Weekday $160 / weekend $180. Open all dates from Aug 3. ---- */
+  {id:'zaytouna-jouwaya',name:'Zaytouna · Jouwaya',emoji:'🫒',color:'#557153',
+   tagline:'Southern chalet in Jouwaya — sleeps up to 8, open all August from the 3rd.',
+   provider:'zaytounaj', location:'Jouwaya, South Lebanon',
+   url:'https://www.instagram.com/zaytouna.chalet7',
+   beds:null, wc:null, capMin:2, capMax:8, extra:0, pool:null,
+   weekday:160, weekend:180, checkin:null, checkout:null,
+   note:'Up to 8 guests. Weekday $160 · weekend $180. Available every date from August 3 onward.',
+   highlights:[],
+   avail:ALL_AUG.filter(d=>d>=3)},
+
+  /* ---- Provider: Ciel Chalet (@ciel via reel). Base 7 guests · +$10/extra. $20 refundable deposit. Weekend = Fri/Sat/Sun. ---- */
+  {id:'ciel',name:'Ciel Chalet',emoji:'☁️',color:'#0ea5e9',
+   tagline:'Chalet for up to 7 — check-in 7 PM, check-out 5 PM next day.',
+   provider:'ciel', url:'https://www.instagram.com/reel/DbIgQs6ojS4/',
+   beds:null, wc:null, capMin:2, capMax:10, extra:0, extraFee:10, baseCap:7, pool:null,
+   weekday:130, weekend:150, checkin:'7:00 PM', checkout:'5:00 PM',
+   note:'Base rate for up to 7 guests · +$10 per extra guest. $20 refundable deposit (returned after staff checkout inspection). Confirm by sending the booking amount via OMT or Wish Money to Maher Mohammad Ali Farhat (70639551) within 48h, else the reservation is auto-cancelled.',
+   highlights:[],
+   avail:[2,7,10,11,12,14]},
 ];
 const EXTRA_GUEST_FEE=10;
 const byId=id=>CHALETS.find(c=>c.id===id);
